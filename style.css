@@ -268,5 +268,22 @@ nav.open ul #nav-cross{
 
 .telephon-screen{
     max-width: 100vw;
-    width: 150px;
+    width: 350px;
+}
+.chat-grid-element{
+    position: relative;    
+}
+#gokartchatpolaroid{
+    transform: scale3d(4, 4, 5) rotate(60deg);
+    transition: transform 0.3s ease-in-out;
+    position:absolute;
+    top: calc(50%);
+    left: calc(50% - 70px);
+    visibility: hidden;
+
+}
+#gokartchatpolaroid.activated{
+    visibility: visible;
+    transform: scale3d(2, 2, 5) rotate(-15deg);
+    
 }
