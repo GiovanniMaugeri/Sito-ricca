@@ -295,6 +295,19 @@ header nav.open ul #nav-cross{
     display: none;
 }   
 
+.carosello-image{
+    width: 250px;
+    height: auto;
+}
+
+.carosello{
+    display: flex;
+    overflow-x: scroll;
+    gap: 2ch;
+    padding-bottom: 1ch;
+    max-width: 100vW;
+}
+
 
 footer{
     background: black;
