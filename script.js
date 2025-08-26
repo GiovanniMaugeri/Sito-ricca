@@ -51,7 +51,7 @@ document.getElementById("burger-menu").addEventListener("click", function() {
 }) ;
 // Video play and polaroid animation
 var videoDone = false;
-document.getElementById("gokartchatvideo").addEventListener("ended", function() {
+document.getElementById("chatVideoGoKart").addEventListener("ended", function() {
         console.log("video ended");
         videoDone = true;
         document.getElementById("gokartchatpolaroid").classList.add("activated");
@@ -59,15 +59,15 @@ document.getElementById("gokartchatvideo").addEventListener("ended", function() 
 // Play video on click
 document.getElementById("gokartchat").addEventListener("click", function() {
     if(!videoDone) {
-        document.getElementById("gokartchatvideo").play();
+        document.getElementById("chatVideoGoKart").play();
     }
     
 });
 // Play video when scrolling to a certain point
 window.addEventListener("scroll", function() {
     if(window.scrollY > 1100 && !videoDone) {
-        document.getElementById("gokartchatvideo").muted = true;
-        document.getElementById("gokartchatvideo").play();
+        document.getElementById("chatVideoGoKart").muted = true;
+        document.getElementById("chatVideoGoKart").play();
     }
 });
 // Scroll to top on page load
