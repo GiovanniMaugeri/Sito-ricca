@@ -83,7 +83,7 @@ header{
     margin: 0;
     
 }
-nav{
+header nav{
     display: none;
 }
 
@@ -93,7 +93,7 @@ nav{
     align-self: flex-end;
     display: none;
 }
-nav ul{
+header nav ul{
     display: flex;
     position: relative;
     align-items: center;
@@ -102,24 +102,24 @@ nav ul{
     gap: 3ch;
     
 }
-nav ul a {
+header nav ul a {
     color: black;
 }
-nav.open{
+header nav.open{
     display: block;
     position: fixed;
     height: 100vh;
     width: 100vw;
     top: 0;
     left: 0;
-    background: pink;
+    background: white;
 }
-nav.open ul{
+header nav.open ul{
     align-items: center;
     justify-content: center;
     flex-direction: column;
 }
-nav.open ul #nav-cross{
+header nav.open ul #nav-cross{
     display: block;
     margin-right: 2ch;
 }
@@ -129,7 +129,8 @@ nav.open ul #nav-cross{
     
 }
 
-.first-section button{
+.first-section button,
+.last-section button{
     background-color: white;
     color: black;
     padding: 1ch 2ch;
@@ -176,7 +177,8 @@ nav.open ul #nav-cross{
     align-items: center;
     justify-content: center;
     padding: 2ch;
-    margin-top: 10ch;
+    margin-top: 7ch;
+    overflow: hidden;
 }
 
 .polaroid-card{
@@ -222,8 +224,8 @@ nav.open ul #nav-cross{
     position: absolute;
     top: 8px;
     left:8px;
-    width: calc(7.8*15px);
-    height: calc(7.8*15px);
+    width: calc(7.8 * 15px + 1px);
+    height: calc(7.8 * 15px + 1px);
     z-index: 2;
     border: 1px solid black;
 }
@@ -258,6 +260,8 @@ nav.open ul #nav-cross{
     gap: 2ch;
     text-overflow: hidden;
     padding: 2ch;
+    justify-content: space-evenly;
+    align-items: center;
 }
 .grid2 p{
     
@@ -267,8 +271,8 @@ nav.open ul #nav-cross{
 }
 
 .telephon-screen{
-    max-width: 100vw;
-    width: 350px;
+    max-width: 400px;
+    width: 100%;
 }
 .chat-grid-element{
     position: relative;    
@@ -286,4 +290,20 @@ nav.open ul #nav-cross{
     visibility: visible;
     transform: scale3d(2, 2, 5) rotate(-15deg);
     
+}
+#chat2{
+    display: none;
+}   
+
+
+footer{
+    background: black;
+    color: white;
+    text-align: center;
+    padding: 4ch;
+    margin-top: 2ch;
+}
+footer a{
+    color: white;
+    text-decoration: underline;
 }

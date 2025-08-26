@@ -17,3 +17,9 @@ document.getElementById("gokartchat").addEventListener("click", function() {
     }
     
 });
+window.addEventListener("scroll", function() {
+    if(window.scrollY > 1100 && !videoDone) {
+        console.log("scrollY > 1200");
+        document.getElementById("gokartchatvideo").play();
+    }
+});
