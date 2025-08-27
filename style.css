@@ -329,14 +329,17 @@ header nav.open ul #nav-cross{
 .carosello-image{
     width: 250px;
     height: auto;
+    border-radius: 20px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
 }
 
 .carosello{
     display: flex;
     overflow-x: scroll;
     gap: 2ch;
-    padding-bottom: 1ch;
-    max-width: 100vW;
+    padding: 1ch;
+
+    max-width: 80vW;
 }
 
 
@@ -394,6 +397,8 @@ footer a{
     }
     .chat-grid{
         display: flex;
+        width: 100%;
+        justify-content: space-evenly;
     }
 }
 
