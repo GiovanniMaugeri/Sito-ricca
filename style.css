@@ -179,6 +179,7 @@ header nav.open ul #nav-cross{
     padding: 2ch;
     margin-top: 7ch;
     overflow: hidden;
+    text-align: center;
 }
 
 .polaroid-card{
@@ -206,7 +207,7 @@ header nav.open ul #nav-cross{
     left:0;
     width: 267px;
     height: 324px;
-    background-color: tomato;
+    background-color: black;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
@@ -254,6 +255,17 @@ header nav.open ul #nav-cross{
     font-size: 12px;
     text-align: center;
 }
+
+
+#go-kart-small-polaroid-1 {
+    transform: rotate(-4deg);
+}
+#spotted-small-polaroid-1 {
+    transform: rotate(2deg);
+}
+#paintball-small-polaroid-1 {
+    transform: rotate(-8deg);
+}
 .grid2{
     display: grid;
     grid-template-columns: 50% auto;
@@ -271,7 +283,7 @@ header nav.open ul #nav-cross{
 }
 
 .telephon-screen{
-    max-width: 400px;
+    max-width: 350px;
     width: 100%;
 }
 .chat-grid-element{
@@ -284,16 +296,35 @@ header nav.open ul #nav-cross{
     top: calc(50%);
     left: calc(50% - 70px);
     visibility: hidden;
+    z-index: 3;
 
 }
 .falling-polaroid.activated{
     visibility: visible;
-    transform: scale3d(2, 2, 5) rotate(-15deg);
+    transform: scale3d(2, 2, 5) rotate(-24deg);
     
 }
-#chat2{
-    display: initial;
-}   
+#chat-polaroid-spotted.falling-polaroid{
+    top: calc(50% - 150px);
+    left: calc(50% - 70px);
+    transform: scale3d(4, 4, 5) rotate(160deg);
+}
+
+#chat-polaroid-spotted.falling-polaroid.activated{
+    visibility: visible;
+    transform: scale3d(2, 2, 5) rotate(15deg);
+}
+#chat-polaroid-paintball.falling-polaroid{
+    top: calc(50% - 100px);
+    left: calc(50% - 70px);
+    transform: scale3d(4, 4, 5) rotate(80deg);
+}
+
+#chat-polaroid-paintball.falling-polaroid.activated{
+    visibility: visible;
+    transform: scale3d(2, 2, 5) rotate(-10deg);
+}
+
 
 .carosello-image{
     width: 250px;
@@ -319,4 +350,63 @@ footer{
 footer a{
     color: white;
     text-decoration: underline;
+}
+
+
+@media screen and (min-width: 768px){
+    header{
+        justify-content: start;
+        gap:5ch;
+        align-items: center;
+    }
+    header nav{
+        display: block;
+    }
+    .burger-menu, #nav-cross{
+        display: none;
+    }
+    header nav li{
+        margin: 0;
+    }
+    .first-section{
+        text-align: center;
+        padding: 0 5ch;
+    }
+
+    .other-section{
+        margin-top: 10ch;
+    }
+    .grid2{
+        grid-template-columns: 50% auto;
+    }
+    
+    #go-kart-small-polaroid-1 {
+        transform: rotate(-4deg) scale(1.4);
+    }
+    #spotted-small-polaroid-1 {
+        transform: rotate(2deg) scale(1.4);
+    }
+    #paintball-small-polaroid-1 {
+        transform: rotate(-8deg) scale(1.4);
+    }
+    button:hover{
+        cursor: pointer;
+    }
+    .chat-grid{
+        display: flex;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1100px){
+    #chat3{
+        display: none;
+    }
+}
+@media screen and (max-width: 768px){
+    #chat3{
+        display: none;
+    }
+    #chat2{
+        display: none;
+    }
 }
