@@ -1,0 +1,18 @@
+main{
+    margin-top: 80px;
+    margin-inline: 10%;
+    padding-block: 5ch;
+}
+
+h2{
+    text-align: start;
+    margin: 0;
+}
+@media screen and (max-width: 768px){
+    main{
+        margin-inline: 3ch;
+    }
+    h2{
+        text-align: center;
+    }
+}

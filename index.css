@@ -1,42 +1,5 @@
-@font-face{
-    font-family: poppins;
-    src:url(./assets/poppins/Poppins-Light.otf);
-}
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    outline: none;
-    font-family: poppins, sans-serif;
-}
-#logo{
-    width: 50px;
-    height: 50px;
 
-}
-h1{
-    font-size: 1.5rem;
-}
-
-h2{
-    margin-bottom: 2ch;
-    text-align: center;
-}
-p{
-    margin-bottom: 2ch;
-}
-ul{
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-li{
-    margin-top: 2ch;
-}
 .first-section{
     display: flex;
     position: relative;
@@ -63,71 +26,7 @@ position : absolute;
     justify-content: center ;
     flex-direction: column;
 }
-header{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: white;
-    color:black;
-    padding: 1.5ch 2ch;
-    z-index: 10;
-}
-.logo{
-    display: flex;
-    align-items: center;
-    justify-content: left;
-    margin: 0;
-    
-}
-header nav{
-    display: none;
-}
 
-#nav-cross{
-    width: 34px;
-    height: 34px;
-    align-self: flex-end;
-    display: none;
-}
-header nav ul{
-    display: flex;
-    position: relative;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-    gap: 3ch;
-    
-}
-header nav ul a {
-    color: black;
-}
-header nav.open{
-    display: block;
-    position: fixed;
-    height: 100vh;
-    width: 100vw;
-    top: 0;
-    left: 0;
-    background: white;
-}
-header nav.open ul{
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-header nav.open ul #nav-cross{
-    display: block;
-    margin-right: 2ch;
-}
-.burger-menu{
-    width: 34px;
-    height: 34px;
-    
-}
 
 .first-section button,
 .last-section button{
@@ -146,11 +45,7 @@ header nav.open ul #nav-cross{
 }
 
 
-.icon{
-    width: 2.5ch;
-    height: 2.5ch;
-    margin-right: 1ch;
-}
+
 #scrollDownBtn{
     padding: 0;
     position: absolute;
@@ -343,34 +238,9 @@ header nav.open ul #nav-cross{
 }
 
 
-footer{
-    background: black;
-    color: white;
-    text-align: center;
-    padding: 4ch;
-    margin-top: 2ch;
-}
-footer a{
-    color: white;
-    text-decoration: underline;
-}
 
 
 @media screen and (min-width: 768px){
-    header{
-        justify-content: start;
-        gap:5ch;
-        align-items: center;
-    }
-    header nav{
-        display: block;
-    }
-    .burger-menu, #nav-cross{
-        display: none;
-    }
-    header nav li{
-        margin: 0;
-    }
     .first-section{
         text-align: center;
         padding: 0 5ch;
