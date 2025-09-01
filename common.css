@@ -126,7 +126,28 @@ footer a{
     color: white;
     text-decoration: underline;
 }
+footer p{
+    margin:  1ch 0 0 0;
+}
 
+.footer-nav ul li{
+    display: flex;
+    align-items: center;
+    justify-content: center;  
+    gap: 1ch;
+    margin-top: 0;
+}   
+
+.footer-nav ul li p{
+    padding: 0;
+    margin: 0; 
+} 
+.footer-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 2ch;
+    margin-top: 2ch;
+}
 @media screen and (min-width: 768px){
     header{
         justify-content: start;

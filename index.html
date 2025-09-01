@@ -22,9 +22,9 @@
         <nav class="">
             <ul>
                 <li id="nav-cross"><img  src="./assets/cross.svg" alt=""></li>
-                <li><a href="#first-section">Contatti</a></li>
-                <li><a href="#other-section">Supporto</a></li>
-                <li><a href="#contact">Iniziative</a></li>
+                <li><a href="#contatti">Contatti</a></li>
+                <li><a href="#contatti">Supporto</a></li>
+                <li><a href="./index.html#iniziative">Iniziative</a></li>
                 <li><a href="./comeFunziona.html">Come funziona</a></li>
             </ul>
         </nav>
@@ -102,7 +102,7 @@
             <p> Smetti di sprecare una giornata a scrollare sul divano ed inizia ad usare Wimii!</p>
             <p> Completamente gratuita usata per trovare persone con i tuoi interessi, fare amicizie o metterti in contatto con le persone giuste!</p>
         </section>
-        <section class="other-section" style="overflow: visible;">
+        <section class="other-section" style="overflow: visible;" id="iniziative">
             <h2>Partecipa ad iniziative con chat singola, di gruppo oppure creale TE!</h2>
             <p>Non sprecare occasioni pre conoscere gente nuova e uscire falla comfort zone.</p>
             <div class="carosello">
@@ -204,13 +204,26 @@
     </main>
     <footer>
         <p>&copy; Wimii. All rights reserved.</p>
-        <nav>
-            <ul>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Terms of Service</a></li>
-                <li><a href="#">Contact Us</a></li>
-            </ul>
-        </nav>
+        <div class="footer-grid">
+            <nav>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </nav>
+        
+            <div>
+                <p>Contatti</p>
+                <nav class="footer-nav" id="contatti">
+                    <ul>
+                        <li>
+                            <img src="./assets/mail_24x24.svg" alt="" style="color: white">
+                            <p>riccardo.danielli@gmail.com</p>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+       </div>
     </footer>
     
 </body>

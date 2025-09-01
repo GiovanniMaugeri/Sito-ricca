@@ -48,8 +48,14 @@ window.onload = function() {
     document.getElementById("burger-menu").addEventListener("click", function() {
         document.querySelector("nav").classList.add("open");
         disableScroll();
-        
     }) ;
+    document.querySelectorAll("nav a").forEach(item => {
+        item.addEventListener("click", function() {
+            document.querySelector("nav").classList.remove("open");
+            enableScroll();
+        })
+      }
+      ) ;
 }
 
     

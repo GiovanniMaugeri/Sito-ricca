@@ -30,14 +30,6 @@ window.addEventListener("scroll", function() {
         document.getElementById("chatVideoPaintball").play();
     }
 });
-// Scroll to top on page load
-window.addEventListener("load", function() {
-    window.scroll({
-        top: 0,
-        left: 0,
-        behavior: 'smooth'
-    });
-});
 
 
 document.getElementById("scrollDownBtn").addEventListener("click", function() {
