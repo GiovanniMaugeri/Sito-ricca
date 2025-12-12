@@ -12,11 +12,11 @@
     margin-top: 80px
 }
 #myVideo {
-position : absolute;
-  top: 0;
-  min-width: 100%;
-  z-index: -1;
-  height: 100vh;
+    position : absolute;
+    top: 0;
+    min-width: 100%;
+    z-index: -1;
+    height: 100vh;
 }
 .video-text{
     color:white;
