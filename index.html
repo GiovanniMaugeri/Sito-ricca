@@ -11,6 +11,30 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="script.js" defer></script>
     <script src="./navBarScript.js"></script>
+    <script>
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const promoCode = urlParams.get('p');
+
+            // Agisce solo se nel link c'è la password del QR (es. ?p=password)
+            if (promoCode) {
+                const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+                const isAndroid = /Android/i.test(navigator.userAgent);
+
+                if (isIOS) {
+                    // Se dopo 2.5 secondi l'utente è ancora sul sito, lo manda all'App Store
+                    setTimeout(function() {
+                        window.location.href = "https://apps.apple.com/app/id6758889696";
+                    }, 2500);
+                } else if (isAndroid) {
+                    // Se è su Android, lo manda al Play Store
+                    setTimeout(function() {
+                        window.location.href = "https://play.google.com/store/apps/details?id=com.wimii.app";
+                    }, 2500);
+                }
+            }
+        };
+    </script>
 </head>
 <body>
     <!-- TODO FIXED HEADER-->
