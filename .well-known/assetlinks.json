@@ -1,0 +1,8 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.wimii.app",
+    "sha256_cert_fingerprints": ["C9:E8:F8:F4:5A:2F:21:D0:58:52:CF:E6:51:64:99:03:B1:7A:5D:DE:63:F8:7A:2B:3A:BF:AB:FD:E5:86:1C:8D"]
+  }
+}]
