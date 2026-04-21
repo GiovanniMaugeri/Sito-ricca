@@ -121,7 +121,8 @@
     <script>
         (function() {
             var path = window.location.pathname || '';
-            var isSharedCard = /^\/(i|s|e)\//.test(path);
+            var match = path.match(/^\/(i|s|e)\/([^\/]+)/);
+            var isSharedCard = !!match;
 
             var ua = navigator.userAgent || '';
             var isIOS = /iPhone|iPad|iPod/i.test(ua);
@@ -143,12 +144,22 @@
                 return;
             }
 
-            openAppBtn.href = window.location.href;
+            var type = match[1];
+            var id = match[2];
+            var deepLink = 'wimii://' + type + '/' + id;
+
+            openAppBtn.href = deepLink;
 
             if (isIOS) {
                 androidBtn.classList.add('hidden');
             } else if (isAndroid) {
                 iosBtn.classList.add('hidden');
+            }
+
+            if (isIOS || isAndroid) {
+                setTimeout(function() {
+                    window.location.href = deepLink;
+                }, 100);
             }
         })();
     </script>
