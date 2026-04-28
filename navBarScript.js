@@ -38,7 +38,7 @@ function enableScroll() {
 }
 
 
-window.onload = function() {
+window.addEventListener("load", function() {
     // Close nav on cross click
    document.getElementById("nav-cross").addEventListener("click", function() {
         document.querySelector("nav").classList.remove("open");
@@ -56,6 +56,6 @@ window.onload = function() {
         })
       }
       ) ;
-}
+});
 
     
