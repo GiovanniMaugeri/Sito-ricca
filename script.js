@@ -1,41 +1,48 @@
-
 // Video play and polaroid animation
 // flags = videoGoKartDone, videoSpottedDone, videoPaintballDone
 // implementing with array to make a reference pass in js
 let flags = [false, false, false];
-document.getElementById("chatVideoGoKart").addEventListener("ended", (e)=> videoEnded(e,flags,0))
-document.getElementById("chatVideoSpotted").addEventListener("ended", (e)=> videoEnded(e,flags,1))
-document.getElementById("chatVideoPaintball").addEventListener("ended", (e)=> videoEnded(e,flags,2))
 
+const chatVideos = [
+    document.getElementById("chatVideoGoKart"),
+    document.getElementById("chatVideoSpotted"),
+    document.getElementById("chatVideoPaintball")
+];
 
-function videoEnded(target, flag,index){
-    flag[index] = true;
-    target.target.parentElement.childNodes[1].classList.add("activated");
-
-    console.log(flags);
-}
-// Play video when scrolling to a certain point
-window.addEventListener("scroll", function() {
-    if(window.scrollY > 1100 && !flags[0]) {
-        document.getElementById("chatVideoGoKart").muted = true;
-        document.getElementById("chatVideoGoKart").play();
-    }
-    if(window.scrollY > 1100 && !flags[1]) {
-        document.getElementById("chatVideoSpotted").muted = true;
-        document.getElementById("chatVideoSpotted").play();
-
-    }
-    if(window.scrollY > 1100 && !flags[2]) {
-        document.getElementById("chatVideoPaintball").muted = true;
-        document.getElementById("chatVideoPaintball").play();
-    }
+chatVideos.forEach((video, index) => {
+    if (!video) return;
+    video.addEventListener("ended", (e) => videoEnded(e, flags, index));
 });
 
+function videoEnded(target, flag, index) {
+    flag[index] = true;
+    target.target.parentElement.childNodes[1].classList.add("activated");
+}
+
+// Play video when it enters the viewport (inline, no fullscreen on iOS)
+const playWhenVisible = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const video = entry.target;
+        const index = chatVideos.indexOf(video);
+        if (index === -1 || flags[index]) return;
+        video.muted = true;
+        video.playbackRate = 1.5;
+        const result = video.play();
+        if (result && typeof result.catch === "function") {
+            result.catch(() => { /* autoplay blocked: ignore, user can scroll freely */ });
+        }
+    });
+}, { threshold: 0.4 });
+
+chatVideos.forEach((video) => {
+    if (video) playWhenVisible.observe(video);
+});
 
 document.getElementById("scrollDownBtn").addEventListener("click", function() {
     window.scroll({
-        top: window.innerHeight-document.getElementsByTagName("header")[0].offsetHeight,
+        top: window.innerHeight - document.getElementsByTagName("header")[0].offsetHeight,
         left: 0,
         behavior: 'smooth'
     });
-})
+});
