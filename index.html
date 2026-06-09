@@ -42,15 +42,17 @@
 
             const overlay = document.createElement('div');
             overlay.id = 'qr-promo-overlay';
-            overlay.innerHTML = `
+                        overlay.innerHTML = `
                 <div class="qr-card">
                     <img src="./assets/logo.png" alt="Wimii" class="qr-logo">
                     <h2>Hai scansionato un QR Wimii! 🎉</h2>
-                    <p>Per riscattare il tuo sconto ti serve l'app Wimii.</p>
-                    <a class="qr-cta" href="https://onelink.to/qyhcnp">Scarica Wimii</a>
-                    <p class="qr-note">Hai già l'app? Aprila e scansiona il QR da dentro.</p>
+                    <p>Apri Wimii per riscattare il tuo sconto.</p>
+                    <a class="qr-cta qr-cta-open" href="wimii://">Apri Wimii</a>
+                    <a class="qr-cta qr-cta-download" href="https://onelink.to/qyhcnp">Scarica Wimii</a>
+                    <p class="qr-note">Una volta dentro l'app, scansiona il QR dal pulsante fotocamera.</p>
                 </div>
             `;
+
             document.body.appendChild(overlay);
         });
     </script>
@@ -92,16 +94,26 @@
             line-height: 1.4;
         }
         #qr-promo-overlay .qr-cta {
-            display: inline-block;
-            background: #3694B1;
-            color: #fff;
+            display: block;
             font-weight: 600;
             font-size: 16px;
             padding: 14px 32px;
             border-radius: 999px;
             text-decoration: none;
+            margin: 0 auto 10px;
+            max-width: 260px;
+        }
+        #qr-promo-overlay .qr-cta-open {
+            background: #3694B1;
+            color: #fff;
+        }
+        #qr-promo-overlay .qr-cta-download {
+            background: #fff;
+            color: #3694B1;
+            border: 2px solid #3694B1;
             margin-bottom: 16px;
         }
+
         #qr-promo-overlay .qr-note {
             font-size: 13px;
             color: #888;
