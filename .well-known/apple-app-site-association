@@ -3,9 +3,33 @@
     "apps": [],
     "details": [
       {
-        "appID": "822M59YW4N.com.wimii.app",
-        "paths": [ "*" ]
+        "appIDs": [ "822M59YW4N.com.wimii.app" ],
+        "components": [
+          {
+            "/": "/",
+            "?": { "p": "?*" },
+            "comment": "QR locale: wimii.app/?p=PASSWORD -> apre app"
+          },
+          {
+            "/": "/i/*",
+            "comment": "Share iniziativa utente"
+          },
+          {
+            "/": "/s/*",
+            "comment": "Share sconto/promo"
+          },
+          {
+            "/": "/e/*",
+            "comment": "Share evento partner"
+          },
+          {
+            "/": "*",
+            "exclude": true,
+            "comment": "Tutto il resto resta sul sito (homepage, comeFunziona, privacy, terms, ecc.)"
+          }
+        ]
       }
     ]
   }
 }
+
