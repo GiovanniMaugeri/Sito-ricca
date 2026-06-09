@@ -25,32 +25,90 @@
     <meta name="twitter:title" content="Wimii — Iniziative, eventi e sconti vicino a te">
     <meta name="twitter:description" content="L'app per trovare persone con i tuoi stessi interessi, organizzare iniziative e scoprire sconti vicino a te.">
     <meta name="twitter:image" content="https://wimii.app/assets/logo.png">
+        <!-- Smart App Banner Apple: mostra automaticamente un banner "Apri Wimii"
+         in Safari iOS quando l'app è installata. Non fa nulla se non c'è. -->
+    <meta name="apple-itunes-app" content="app-id=6758889696">
+
     <script src="script.js" defer></script>
     <script src="./navBarScript.js"></script>
     <script>
+        // Se l'URL ha ?p=PASSWORD (QR del locale) e l'utente non viene aperto
+        // direttamente nell'app (caso senza app o universal link non riuscito),
+        // mostriamo un overlay con CTA pulito invece del redirect aggressivo.
         window.addEventListener("load", function() {
             const urlParams = new URLSearchParams(window.location.search);
             const promoCode = urlParams.get('p');
+            if (!promoCode) return;
 
-            // Agisce solo se nel link c'è la password del QR (es. ?p=password)
-            if (promoCode) {
-                const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-                const isAndroid = /Android/i.test(navigator.userAgent);
-
-                if (isIOS) {
-                    // Se dopo 2.5 secondi l'utente è ancora sul sito, lo manda all'App Store
-                    setTimeout(function() {
-                        window.location.href = "https://apps.apple.com/app/id6758889696";
-                    }, 2500);
-                } else if (isAndroid) {
-                    // Se è su Android, lo manda al Play Store
-                    setTimeout(function() {
-                        window.location.href = "https://play.google.com/store/apps/details?id=com.wimii.app";
-                    }, 2500);
-                }
-            }
+            const overlay = document.createElement('div');
+            overlay.id = 'qr-promo-overlay';
+            overlay.innerHTML = `
+                <div class="qr-card">
+                    <img src="./assets/logo.png" alt="Wimii" class="qr-logo">
+                    <h2>Hai scansionato un QR Wimii! 🎉</h2>
+                    <p>Per riscattare il tuo sconto ti serve l'app Wimii.</p>
+                    <a class="qr-cta" href="https://onelink.to/qyhcnp">Scarica Wimii</a>
+                    <p class="qr-note">Hai già l'app? Aprila e scansiona il QR da dentro.</p>
+                </div>
+            `;
+            document.body.appendChild(overlay);
         });
     </script>
+    <style>
+        #qr-promo-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 24px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        #qr-promo-overlay .qr-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 32px 24px;
+            text-align: center;
+            max-width: 360px;
+            width: 100%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+        #qr-promo-overlay .qr-logo {
+            width: 72px;
+            height: 72px;
+            margin-bottom: 16px;
+        }
+        #qr-promo-overlay h2 {
+            font-size: 20px;
+            margin: 0 0 12px;
+            color: #1a1a1a;
+        }
+        #qr-promo-overlay p {
+            font-size: 15px;
+            color: #555;
+            margin: 0 0 20px;
+            line-height: 1.4;
+        }
+        #qr-promo-overlay .qr-cta {
+            display: inline-block;
+            background: #3694B1;
+            color: #fff;
+            font-weight: 600;
+            font-size: 16px;
+            padding: 14px 32px;
+            border-radius: 999px;
+            text-decoration: none;
+            margin-bottom: 16px;
+        }
+        #qr-promo-overlay .qr-note {
+            font-size: 13px;
+            color: #888;
+            margin: 0;
+        }
+    </style>
+
 </head>
 <body>
     <!-- TODO FIXED HEADER-->
