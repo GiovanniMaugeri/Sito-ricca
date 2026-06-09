@@ -6,9 +6,8 @@
         "appIDs": [ "822M59YW4N.com.wimii.app" ],
         "components": [
           {
-            "/": "/",
-            "?": { "p": "?*" },
-            "comment": "QR locale: wimii.app/?p=PASSWORD -> apre app"
+            "?": { "p": "*" },
+            "comment": "QR locale: qualsiasi URL con ?p=... apre app"
           },
           {
             "/": "/i/*",
@@ -32,4 +31,3 @@
     ]
   }
 }
-
