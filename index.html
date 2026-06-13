@@ -40,16 +40,36 @@
             const promoCode = urlParams.get('p');
             if (!promoCode) return;
 
+            // Distinguiamo:
+            //   - "staff_..." → invito link cassiere generato da un proprietario
+            //   - tutto il resto → vecchio QR fisico per promo (es. "Wimii017")
+            const isStaffInvite = promoCode.indexOf('staff_') === 0;
+
+            const title = isStaffInvite
+                ? "Sei stato invitato come cassiere!"
+                : "Hai scansionato un QR Wimii! 🎉";
+            const subtitle = isStaffInvite
+                ? "Apri Wimii per accettare l'invito e iniziare a validare i coupon dei clienti."
+                : "Apri Wimii e scansionalo da dentro per riscattare lo sconto.";
+            const note = isStaffInvite
+                ? ""
+                : "Il Pulsante Scan QR si trova nella sezione Locali.";
+
+            // CRUCIALE: passiamo i query params al custom scheme così l'app
+            // riceve il token (?p=staff_xxx oppure ?p=Wimii017) e può
+            // instradare correttamente in DeepLinkService.
+            const deepLinkHref = "wimii://" + window.location.search;
+
             const overlay = document.createElement('div');
             overlay.id = 'qr-promo-overlay';
-                        overlay.innerHTML = `
+            overlay.innerHTML = `
                 <div class="qr-card">
                     <img src="./assets/logo.png" alt="Wimii" class="qr-logo">
-                    <h2>Hai scansionato un QR Wimii! 🎉</h2>
-                    <p>Apri Wimii e scansionalo da dentro per riscattare lo sconto.</p>
-                    <a class="qr-cta qr-cta-open" href="wimii://">Apri Wimii</a>
+                    <h2>${title}</h2>
+                    <p>${subtitle}</p>
+                    <a class="qr-cta qr-cta-open" href="${deepLinkHref}">Apri Wimii</a>
                     <a class="qr-cta qr-cta-download" href="https://onelink.to/qyhcnp">Scarica Wimii</a>
-                    <p class="qr-note">Il Pulsante Scan QR si trova nella sezione Locali.</p>
+                    ${note ? '<p class="qr-note">' + note + '</p>' : ''}
                 </div>
             `;
 
