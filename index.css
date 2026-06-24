@@ -283,3 +283,32 @@
         display: none;
     }
 }
+
+/* Banner B2B "Hai un locale?" in homepage */
+.locali-banner{
+    background: #3694B1;
+    color: #fff;
+    width: 100%;
+    margin-top: 7ch;
+    padding: 6ch 2ch;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.locali-banner h2{ color: #fff; }
+.locali-banner p{ max-width: 46ch; }
+.locali-banner .locali-btn{
+    display: inline-flex;
+    align-items: center;
+    gap: 1ch;
+    background: #fff;
+    color: #3694B1;
+    font-weight: bold;
+    padding: 1.2ch 3ch;
+    border-radius: 999px;
+    text-decoration: none;
+    border: solid 2px #fff;
+    transition: transform .15s ease;
+}
+.locali-banner .locali-btn:hover{ transform: translateY(-2px); }
