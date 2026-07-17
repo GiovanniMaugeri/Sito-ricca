@@ -1,69 +1,54 @@
-var keys = {37: 1, 38: 1, 39: 1, 40: 1};
-
-function preventDefault(e) {
-  e.preventDefault();
-}
-
-function preventDefaultForScrollKeys(e) {
-  if (keys[e.keyCode]) {
-    preventDefault(e);
-    return false;
-  }
-}
-
-// modern Chrome requires { passive: false } when adding event
-var supportsPassive = false;
-try {
-  window.addEventListener("test", null, Object.defineProperty({}, 'passive', {
-    get: function () { supportsPassive = true; } 
-  }));
-} catch(e) {}
-
-var wheelOpt = supportsPassive ? { passive: false } : false;
-var wheelEvent = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewheel';
-// call this to Disable
-function disableScroll() {
-  window.addEventListener('DOMMouseScroll', preventDefault, false); // older FF
-  window.addEventListener(wheelEvent, preventDefault, wheelOpt); // modern desktop
-  window.addEventListener('touchmove', preventDefault, wheelOpt); // mobile
-  window.addEventListener('keydown', preventDefaultForScrollKeys, false);
-}
-
-// call this to Enable
-function enableScroll() {
-  window.removeEventListener('DOMMouseScroll', preventDefault, false);
-  window.removeEventListener(wheelEvent, preventDefault, wheelOpt); 
-  window.removeEventListener('touchmove', preventDefault, wheelOpt);
-  window.removeEventListener('keydown', preventDefaultForScrollKeys, false);
-}
-
-
-window.addEventListener("load", function() {
+window.addEventListener("load", function () {
     var nav = document.querySelector("header nav");
     var cross = document.getElementById("nav-cross");
     var burger = document.getElementById("burger-menu");
     var header = document.querySelector("header");
 
-    if (cross && nav) {
-        cross.addEventListener("click", function() {
-            nav.classList.remove("open");
-            enableScroll();
-        });
+    function openNav() {
+        if (!nav) return;
+        nav.classList.add("open");
+        document.body.classList.add("nav-open");
+        if (header) header.classList.add("menu-open");
     }
+
+    function closeNav() {
+        if (!nav) return;
+        nav.classList.remove("open");
+        document.body.classList.remove("nav-open");
+        if (header) header.classList.remove("menu-open");
+    }
+
     if (burger && nav) {
-        burger.addEventListener("click", function() {
-            nav.classList.add("open");
-            disableScroll();
+        burger.addEventListener("click", function (e) {
+            e.stopPropagation();
+            openNav();
         });
     }
+
+    if (cross && nav) {
+        cross.addEventListener("click", function (e) {
+            e.stopPropagation();
+            closeNav();
+        });
+    }
+
     if (nav) {
-        nav.querySelectorAll("a").forEach(function(item) {
-            item.addEventListener("click", function() {
-                nav.classList.remove("open");
-                enableScroll();
+        // Chiudi cliccando lo sfondo scuro (fuori dal pannello bianco)
+        nav.addEventListener("click", function (e) {
+            if (e.target === nav) closeNav();
+        });
+
+        nav.querySelectorAll("a").forEach(function (item) {
+            item.addEventListener("click", function () {
+                closeNav();
             });
         });
     }
+
+    // Escape
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") closeNav();
+    });
 
     if (header) {
         function onScroll() {
@@ -73,5 +58,3 @@ window.addEventListener("load", function() {
         window.addEventListener("scroll", onScroll, { passive: true });
     }
 });
-
-    
