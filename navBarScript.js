@@ -39,23 +39,39 @@ function enableScroll() {
 
 
 window.addEventListener("load", function() {
-    // Close nav on cross click
-   document.getElementById("nav-cross").addEventListener("click", function() {
-        document.querySelector("nav").classList.remove("open");
-        enableScroll();
-    }) ;
-    // Open nav on burger menu click
-    document.getElementById("burger-menu").addEventListener("click", function() {
-        document.querySelector("nav").classList.add("open");
-        disableScroll();
-    }) ;
-    document.querySelectorAll("nav a").forEach(item => {
-        item.addEventListener("click", function() {
-            document.querySelector("nav").classList.remove("open");
+    var nav = document.querySelector("header nav");
+    var cross = document.getElementById("nav-cross");
+    var burger = document.getElementById("burger-menu");
+    var header = document.querySelector("header");
+
+    if (cross && nav) {
+        cross.addEventListener("click", function() {
+            nav.classList.remove("open");
             enableScroll();
-        })
-      }
-      ) ;
+        });
+    }
+    if (burger && nav) {
+        burger.addEventListener("click", function() {
+            nav.classList.add("open");
+            disableScroll();
+        });
+    }
+    if (nav) {
+        nav.querySelectorAll("a").forEach(function(item) {
+            item.addEventListener("click", function() {
+                nav.classList.remove("open");
+                enableScroll();
+            });
+        });
+    }
+
+    if (header) {
+        function onScroll() {
+            header.classList.toggle("scrolled", window.scrollY > 24);
+        }
+        onScroll();
+        window.addEventListener("scroll", onScroll, { passive: true });
+    }
 });
 
     

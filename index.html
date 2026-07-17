@@ -1,18 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">    
+<html lang="it">
 
 <head>
     <meta name="facebook-domain-verification" content="p9v1e2zsmvhxn1ton7jd8v4g6rqtc5" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wimii</title>
+    <title>Wimii — Iniziative, eventi e sconti vicino a te</title>
     <meta name="description" content="L'app per trovare persone con i tuoi stessi interessi, organizzare iniziative e scoprire sconti vicino a te.">
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
-    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="common.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="index.css">
 
-    <!-- Preview per WhatsApp, iMessage, Telegram, Facebook, Twitter, ecc. -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Wimii">
     <meta property="og:title" content="Wimii — Iniziative, eventi e sconti vicino a te">
@@ -25,39 +26,24 @@
     <meta name="twitter:title" content="Wimii — Iniziative, eventi e sconti vicino a te">
     <meta name="twitter:description" content="L'app per trovare persone con i tuoi stessi interessi, organizzare iniziative e scoprire sconti vicino a te.">
     <meta name="twitter:image" content="https://wimii.app/assets/logo.png">
-        <!-- Smart App Banner Apple: mostra automaticamente un banner "Apri Wimii"
-         in Safari iOS quando l'app è installata. Non fa nulla se non c'è. -->
     <meta name="apple-itunes-app" content="app-id=6758889696">
 
     <script src="script.js" defer></script>
     <script src="./navBarScript.js"></script>
     <script>
-        // Se l'URL ha ?p=PASSWORD (QR del locale) e l'utente non viene aperto
-        // direttamente nell'app (caso senza app o universal link non riuscito),
-        // mostriamo un overlay con CTA pulito invece del redirect aggressivo.
         window.addEventListener("load", function() {
             const urlParams = new URLSearchParams(window.location.search);
             const promoCode = urlParams.get('p');
             if (!promoCode) return;
 
-            // Distinguiamo:
-            //   - "staff_..." → invito link cassiere generato da un proprietario
-            //   - tutto il resto → vecchio QR fisico per promo (es. "Wimii017")
             const isStaffInvite = promoCode.indexOf('staff_') === 0;
-
             const title = isStaffInvite
                 ? "Sei stato invitato come cassiere!"
-                : "Hai scansionato un QR Wimii! 🎉";
+                : "Hai scansionato un QR Wimii!";
             const subtitle = isStaffInvite
                 ? "Apri Wimii per accettare l'invito e iniziare a validare i coupon dei clienti."
                 : "Apri Wimii e scansionalo da dentro per riscattare lo sconto.";
-            const note = isStaffInvite
-                ? ""
-                : "Il Pulsante Scan QR si trova nella sezione Locali.";
-
-            // CRUCIALE: passiamo i query params al custom scheme così l'app
-            // riceve il token (?p=staff_xxx oppure ?p=Wimii017) e può
-            // instradare correttamente in DeepLinkService.
+            const note = isStaffInvite ? "" : "Il pulsante Scan QR si trova nella sezione Locali.";
             const deepLinkHref = "wimii://" + window.location.search;
 
             const overlay = document.createElement('div');
@@ -72,270 +58,422 @@
                     ${note ? '<p class="qr-note">' + note + '</p>' : ''}
                 </div>
             `;
-
             document.body.appendChild(overlay);
         });
     </script>
-    <style>
-        #qr-promo-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.85);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            padding: 24px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
-        #qr-promo-overlay .qr-card {
-            background: #fff;
-            border-radius: 20px;
-            padding: 32px 24px;
-            text-align: center;
-            max-width: 360px;
-            width: 100%;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-        }
-        #qr-promo-overlay .qr-logo {
-            width: 72px;
-            height: 72px;
-            margin-bottom: 16px;
-        }
-        #qr-promo-overlay h2 {
-            font-size: 20px;
-            margin: 0 0 12px;
-            color: #1a1a1a;
-        }
-        #qr-promo-overlay p {
-            font-size: 15px;
-            color: #555;
-            margin: 0 0 20px;
-            line-height: 1.4;
-        }
-        #qr-promo-overlay .qr-cta {
-            display: block;
-            font-weight: 600;
-            font-size: 16px;
-            padding: 14px 32px;
-            border-radius: 999px;
-            text-decoration: none;
-            margin: 0 auto 10px;
-            max-width: 260px;
-        }
-        #qr-promo-overlay .qr-cta-open {
-            background: #3694B1;
-            color: #fff;
-        }
-        #qr-promo-overlay .qr-cta-download {
-            background: #fff;
-            color: #3694B1;
-            border: 2px solid #3694B1;
-            margin-bottom: 16px;
-        }
-
-        #qr-promo-overlay .qr-note {
-            font-size: 13px;
-            color: #888;
-            margin: 0;
-        }
-    </style>
-
 </head>
-<body>
-    <!-- TODO FIXED HEADER-->
-    <header>
-        <div class="logo">
-            <img src="./assets/logo.png" alt="Logo" id="logo">
+<body class="page-home">
+    <header class="header-transparent">
+        <a class="logo" href="./index.html">
+            <img src="./assets/logo.png" alt="Wimii" id="logo">
             <h1>Wimii</h1>
-        </div>
-        <nav class="">
+        </a>
+        <nav>
             <ul>
-                <li id="nav-cross"><img  src="./assets/cross.svg" alt=""></li>
+                <li id="nav-cross"><img src="./assets/cross.svg" alt="Chiudi menu"></li>
                 <li><a href="#contatti">Contatti</a></li>
                 <li><a href="#contatti">Supporto</a></li>
-                <li><a href="./index.html#iniziative">Iniziative</a></li>
+                <li><a href="#iniziative">Iniziative</a></li>
                 <li><a href="./comeFunziona.html">Come funziona</a></li>
                 <li><a href="./perLocali.html">Per i locali</a></li>
+                <li class="nav-cta"><a href="https://onelink.to/qyhcnp" target="_blank" rel="noopener">Scarica l'app</a></li>
             </ul>
         </nav>
-        <div id="burger-menu"class="burger-menu"><img src="./assets/burger-menu.svg" alt=""></div>
+        <div id="burger-menu" class="burger-menu"><img src="./assets/burger-menu.svg" alt="Menu"></div>
     </header>
+
     <main>
-        <section class="first-section">
-            <video autoplay muted loop playsinline preload="auto" disablepictureinpicture id="myVideo">
+        <section class="hero">
+            <video class="hero-video" autoplay muted loop playsinline preload="auto" disablepictureinpicture id="myVideo">
                 <source src="./assets/video.mp4" type="video/mp4">
             </video>
-            <div class="video-text">
-                <button id="downloadFromPlaystore" onclick="window.open('https://play.google.com/store/apps/details?id=com.wimii.app', '_blank')"><img  class="icon" src="assets/PlayStoreIcon.png"></img>Scarica ora!</button>
-                <button id="actionButton" onclick="window.open('https://apps.apple.com/it/app/id6758889696', '_blank')"><img  class="icon" src="assets/apple.png"></img>Scarica ora!</button>
-                <button id="scrollDownBtn"><img src="assets/down.png"></img></button>
-            </div>
-        </section>
-        <section class="other-section">
-            <h2>Cosa puoi trovare su Wimii?</h2>
-            <p>Fondamentalmente di tutto!</p>
-            <div class="grid2">
-                <div>Ciao, c'è qualcuno che questa settimana vuole andare ai go kart?</div>
-                <div class="polaroid-card-small" id="go-kart-small-polaroid-1" >
-                    <img class="polaroid-image-small" src="./assets/fotoPolaroidGoKart.jpg" alt="">
-                    <img class="polaroid-border-small" src="./assets/polaroid.svg" alt="" srcset="">
-                </div>
-                <div>Spotto ragazzo moro-alto vestito con camicia azzurra che ho visto in uni. Se mi metti like ti scrivo subito!</div>
-                <div class="polaroid-card-small" id="spotted-small-polaroid-1" >
-                    <img class="polaroid-image-small" src="./assets/fotoPolaroidSpotted.jpeg" alt="">
-                    <img class="polaroid-border-small" src="./assets/polaroid.svg" alt="" srcset="">
-            </div>
-                <div>I miei amici sono sempre impegnati e non mi riesce organizzare un paintball, qualcuno che vuole venire?</div>
-                <div class="polaroid-card-small" id="paintball-small-polaroid-1" >
-                    <img class="polaroid-image-small" src="./assets/fotoPolaroidPaintball.jpg" alt="">
-                    <img class="polaroid-border-small" src="./assets/polaroid.svg" alt="" srcset="">
+            <div class="hero-veil" aria-hidden="true"></div>
+            <div class="hero-copy">
+                <p class="hero-brand">Wimii</p>
+                <h2 class="hero-title">La vita non sta<br>nel feed</h2>
+                <p class="hero-sub">Iniziative vere, persone vere, a uno swipe da te.</p>
+                <div class="hero-cta">
+                    <a class="btn-store" href="https://onelink.to/qyhcnp" target="_blank" rel="noopener">
+                        <img class="icon" src="assets/PlayStoreIcon.png" alt="">Google Play
+                    </a>
+                    <a class="btn-store btn-store-ghost" href="https://onelink.to/qyhcnp" target="_blank" rel="noopener">
+                        <img class="icon" src="assets/apple.png" alt="">App Store
+                    </a>
                 </div>
             </div>
+            <button id="scrollDownBtn" type="button" aria-label="Scorri"><span></span></button>
         </section>
 
+        <section class="strip-type">
+            <p class="strip-line reveal">
+                <span>Scorri meno.</span>
+                <span class="accent">Vivi di più.</span>
+            </p>
+        </section>
 
-
-        <section class="other-section">
-            <h2>Partecipa a chat dirette o chat di gruppo!</h2>
-            <div class="chat-grid">
-                <div class="chat-grid-element" id="gokartchat">
-                    <div class="polaroid-card-small falling-polaroid" id="chat-polaroid-go-kart" >  
-                            <img class="polaroid-image-small" src="./assets/fotoPolaroidGoKart2.jpg" alt="">
-                            <img class="polaroid-border-small" src="./assets/polaroid.svg" alt="" srcset="">
+        <!-- Product: phone with real-style cards -->
+        <section class="product">
+            <div class="product-text reveal">
+                <p class="eyebrow">Come funziona</p>
+                <h2>Uno swipe.<br>Una storia.</h2>
+                <p>Destra se ti interessa, sinistra se passi. Puoi creare in anonimo oppure mostrare subito il tuo profilo. Poi organizzate tutto in chat.</p>
+                <a class="text-link" href="./comeFunziona.html">Scopri il flusso completo →</a>
+            </div>
+            <div class="product-stage reveal" aria-hidden="true">
+                <div class="phone-shell">
+                    <div class="phone-notch"></div>
+                    <div class="phone-screen phone-screen--swipe">
+                        <p class="phone-app-title">Wimii</p>
+                        <div class="swipe-deck">
+                            <!-- anon group -->
+                            <article class="w-card swipe-card s1">
+                                <div class="w-card-top">
+                                    <span class="w-pill w-pill--group">GRUPPO</span>
+                                    <span class="w-pill w-pill--dist">3 km</span>
+                                    <span class="w-pill w-pill--n">6</span>
+                                </div>
+                                <h3 class="w-card-title">Cerco compagnia per un aperitivo di gruppo sabato sera, chi si unisce?</h3>
+                                <div class="w-card-bottom">
+                                    <span class="w-pill w-pill--muted">Età creatore: 24</span>
+                                    <span class="w-pill w-pill--cat">cibo</span>
+                                    <span class="w-expire">Scade tra 3 gg</span>
+                                </div>
+                            </article>
+                            <!-- profile Giulia -->
+                            <article class="w-card swipe-card s2">
+                                <div class="w-card-top">
+                                    <span class="w-pill w-pill--group">GRUPPO</span>
+                                    <span class="w-pill w-pill--dist">2 km</span>
+                                    <span class="w-pill w-pill--n">8</span>
+                                </div>
+                                <h3 class="w-card-title">Aperitivo organizzato da Giulia: spritz, chiacchiere e gente nuova</h3>
+                                <div class="w-card-bottom">
+                                    <span class="w-creator">
+                                        <img src="./assets/mock/avatar-giulia.jpg" alt="">
+                                        <span>Giulia</span>
+                                    </span>
+                                    <span class="w-pill w-pill--cat w-pill--cat-pink">serata</span>
+                                    <span class="w-expire">Scade tra 5 gg</span>
+                                </div>
+                            </article>
+                            <!-- anon single -->
+                            <article class="w-card swipe-card s3">
+                                <div class="w-card-top">
+                                    <span class="w-pill w-pill--single">SINGOLA</span>
+                                    <span class="w-pill w-pill--dist">5 km</span>
+                                </div>
+                                <h3 class="w-card-title">Chi per 4 chiacchiere e una passeggiata senza impegno?</h3>
+                                <div class="w-card-bottom">
+                                    <span class="w-pill w-pill--muted">Età creatore: 29</span>
+                                    <span class="w-pill w-pill--cat w-pill--cat-yellow">amicizia</span>
+                                    <span class="w-expire">Scade tra 11 gg</span>
+                                </div>
+                            </article>
+                            <!-- profile Marco go kart -->
+                            <article class="w-card swipe-card s4">
+                                <div class="w-card-top">
+                                    <span class="w-pill w-pill--group">GRUPPO</span>
+                                    <span class="w-pill w-pill--dist">4 km</span>
+                                    <span class="w-pill w-pill--n">5</span>
+                                </div>
+                                <h3 class="w-card-title">Gruppo go-kart: pomeriggio in pista, posti ancora liberi!</h3>
+                                <div class="w-card-bottom">
+                                    <span class="w-creator">
+                                        <img src="./assets/mock/avatar-marco.jpg" alt="">
+                                        <span>Marco</span>
+                                    </span>
+                                    <span class="w-pill w-pill--cat">sport</span>
+                                    <span class="w-expire">Scade tra 7 gg</span>
+                                </div>
+                            </article>
+                        </div>
                     </div>
-                    <video class="telephon-screen" src="./assets/chat go kart/video go kart.mp4" id="chatVideoGoKart" muted playsinline preload="metadata" disablepictureinpicture></video>
                 </div>
-                <div class="chat-grid-element" id="chat2">
-                    <div class="polaroid-card-small falling-polaroid" id="chat-polaroid-spotted">  
-                            <img class="polaroid-image-small" src="./assets/fotoPolaroidSpotted.jpeg" alt="">
-                            <img class="polaroid-border-small" src="./assets/polaroid.svg" alt="" srcset="">
+            </div>
+        </section>
+
+        <!-- Moments -->
+        <section class="moments">
+            <div class="moments-head reveal">
+                <h2>Cose che succedono su Wimii</h2>
+                <p>Non profili da giudicare. Idee da vivere.</p>
+            </div>
+            <div class="moments-track">
+                <article class="moment">
+                    <img src="./assets/mock/gokart-group.jpg" alt="">
+                    <div class="moment-cap"><p>Gruppo go-kart in pista</p></div>
+                </article>
+                <article class="moment">
+                    <img class="moment-img--wide" src="./assets/mock/aperitivo-wide.jpg" alt="">
+                    <div class="moment-cap"><p>Aperitivo di gruppo sabato</p></div>
+                </article>
+                <article class="moment">
+                    <img src="./assets/mock/paintball.jpg" alt="">
+                    <div class="moment-cap"><p>Paintball: cerchiamo 2 posti</p></div>
+                </article>
+                <article class="moment moment-cta">
+                    <div class="moment-cap">
+                        <p>La tua prossima uscita inizia con un’idea.</p>
+                        <a href="https://onelink.to/qyhcnp" target="_blank" rel="noopener">Scarica l’app</a>
                     </div>
-                    <video class="telephon-screen" src="./assets/chat spotted/videoSpotted.mp4" id="chatVideoSpotted" muted playsinline preload="metadata" disablepictureinpicture></video>
-                </div>
-                <div class="chat-grid-element" id="chat3">
-                    <div class="polaroid-card-small falling-polaroid" id="chat-polaroid-paintball">  
-                            <img class="polaroid-image-small" src="./assets/fotoPolaroidPaintball.jpg" alt="">
-                            <img class="polaroid-border-small" src="./assets/polaroid.svg" alt="" srcset="">
+                </article>
+            </div>
+        </section>
+
+        <!-- Chat mock -->
+        <section class="chat-cinema">
+            <div class="chat-cinema-copy reveal">
+                <p class="eyebrow">Dopo l’accettazione</p>
+                <h2>Dallo swipe<br>alla chat</h2>
+                <p>Singola o di gruppo: organizzi ora, luogo e dettagli con chi ha detto sì.</p>
+            </div>
+            <div class="chat-cinema-stage reveal">
+                <div class="chat-glow" aria-hidden="true"></div>
+                <div class="phone-shell phone-shell--chat">
+                    <div class="phone-notch"></div>
+                    <div class="app-chat" id="appChat">
+                        <div class="app-chat-header">
+                            <span class="chat-back" aria-hidden="true">‹</span>
+                            <img class="chat-group-photo" src="./assets/mock/gokart-group.jpg" alt="">
+                            <div class="chat-group-meta">
+                                <strong>Gruppo Go Kart</strong>
+                                <span>5 partecipanti</span>
+                            </div>
+                            <span class="chat-info" aria-hidden="true">ⓘ</span>
+                        </div>
+                        <div class="app-chat-body" id="chatMessages">
+                            <div class="chat-msg chat-msg--out" data-step="0">
+                                <div class="bubble bubble--out">Ciao a tutti 👋</div>
+                                <span class="time">14:25</span>
+                            </div>
+                            <div class="chat-msg chat-msg--in" data-step="1">
+                                <img class="chat-avatar" src="./assets/mock/avatar-sara.jpg" alt="">
+                                <div>
+                                    <span class="chat-name">Sara</span>
+                                    <div class="bubble bubble--in">Ok topp, che orario?</div>
+                                </div>
+                            </div>
+                            <div class="chat-msg chat-msg--in" data-step="2">
+                                <img class="chat-avatar" src="./assets/mock/avatar-luca.jpg" alt="">
+                                <div>
+                                    <span class="chat-name">Luca</span>
+                                    <div class="bubble bubble--in">Io posso dalle 16</div>
+                                </div>
+                            </div>
+                            <div class="chat-msg chat-msg--in" data-step="3">
+                                <img class="chat-avatar" src="./assets/mock/avatar-giulia.jpg" alt="">
+                                <div>
+                                    <span class="chat-name">Giulia</span>
+                                    <div class="bubble bubble--in">
+                                        <div class="reply-quote">Io posso dalle 16</div>
+                                        Se vuoi ti passo a prendere
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chat-msg chat-msg--out" data-step="4">
+                                <div class="bubble bubble--out">Perfetto, ci vediamo lì!</div>
+                                <span class="time">14:31</span>
+                            </div>
+                            <div class="chat-msg chat-msg--in" data-step="5">
+                                <img class="chat-avatar" src="./assets/mock/avatar-marco.jpg" alt="">
+                                <div>
+                                    <span class="chat-name">Marco</span>
+                                    <div class="bubble bubble--in">Non vedo l’ora 🏎️</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="app-chat-input">
+                            <span class="chat-attach" aria-hidden="true">＋</span>
+                            <div class="chat-field">Scrivi un messaggio...</div>
+                            <span class="chat-mic" aria-hidden="true">🎙️</span>
+                        </div>
                     </div>
-                    <video class="telephon-screen" src="assets/chat paintball/videoPaintball.mp4" id="chatVideoPaintball" muted playsinline preload="metadata" disablepictureinpicture></video>
                 </div>
             </div>
         </section>
 
-        <section class="other-section">
-            <h2>Cos'è Wimii?</h2>
-            <p> è un'app completamente gratuita usata per trovare persone con i tuoi interessi, fare amicizie o metterti in contatto con le persone giuste!</p>
-            <p> Hai cambiato città e vuoi conoscere persone interessanti e fare delle belle attività ma non sai come fare?</p>
-            <p> I tuoi amici sono molto impegnati e finisci sempre per rinviare?</p>
-            <p> Vorresti uscire dalla comfort zone ma non sai come?</p>
-            <p> Smetti di sprecare una giornata a scrollare sul divano ed inizia ad usare Wimii!</p>
-        </section>
-        <section class="other-section" style="overflow: visible;" id="iniziative">
-            <h2>Partecipa ad iniziative con chat singola, di gruppo oppure creale TE!</h2>
-            <p>Non sprecare occasioni per conoscere gente nuova e uscire dalla comfort zone</p>
-            <div class="carosello">
-                <div class="carosello-item">
-                    <img class="carosello-image" src="./assets/carosello1/immagineCarosello1.png" alt="">
-                </div>
-                <div class="carosello-item">
-                    <img class="carosello-image" src="./assets/carosello1/immagineCarosello2.png" alt="">
-                </div>
-                <div class="carosello-item">
-                    <img class="carosello-image" src="./assets/carosello1/immagineCarosello3.png" alt="">
-                </div>
-                <div class="carosello-item">
-                    <img class="carosello-image" src="./assets/carosello1/immagineCarosello4.png" alt="">
-                </div>
-                <div class="carosello-item" >
-                    <img class="carosello-image" src="./assets/carosello1/immagineCarosello5.png" alt="">
-                </div>
-                <div class="carosello-item" >
-                    <img class="carosello-image" src="./assets/carosello1/immagineCarosello6.png" alt="">
-                </div>
-                <div class="carosello-item" >
-                    <img class="carosello-image" src="./assets/carosello1/immagineCarosello7.png" alt="">
+        <!-- Marquee: iniziative utente + promo locali (stile app) -->
+        <section class="marquee-block" id="iniziative">
+            <div class="marquee-head reveal">
+                <h2>Iniziative e promo che girano ora</h2>
+                <p>Card delle persone e offerte sponsor dei locali — come le vedi nell’app.</p>
+            </div>
+            <div class="marquee" aria-hidden="true">
+                <div class="marquee-inner" id="marqueeTrack">
+                    <article class="w-card w-card--rail">
+                        <div class="w-card-top">
+                            <span class="w-pill w-pill--group">GRUPPO</span>
+                            <span class="w-pill w-pill--dist">3 km</span>
+                            <span class="w-pill w-pill--n">6</span>
+                        </div>
+                        <h3 class="w-card-title">Cerco compagnia per un aperitivo di gruppo sabato sera, chi si unisce?</h3>
+                        <div class="w-card-bottom">
+                            <span class="w-pill w-pill--muted">Età creatore: 24</span>
+                            <span class="w-pill w-pill--cat">cibo</span>
+                            <span class="w-expire">Scade tra 3 gg</span>
+                        </div>
+                    </article>
+
+                    <article class="w-card w-card--rail">
+                        <div class="w-card-top">
+                            <span class="w-pill w-pill--group">GRUPPO</span>
+                            <span class="w-pill w-pill--dist">2 km</span>
+                            <span class="w-pill w-pill--n">8</span>
+                        </div>
+                        <h3 class="w-card-title">Aperitivo organizzato da Giulia: spritz, chiacchiere e gente nuova</h3>
+                        <div class="w-card-bottom">
+                            <span class="w-creator">
+                                <img src="./assets/mock/avatar-giulia.jpg" alt="">
+                                <span>Giulia</span>
+                            </span>
+                            <span class="w-pill w-pill--cat w-pill--cat-pink">serata</span>
+                            <span class="w-expire">Scade tra 5 gg</span>
+                        </div>
+                    </article>
+
+                    <!-- PROMO locali (stile sponsor app) -->
+                    <article class="w-promo w-card--rail">
+                        <img src="./assets/mock/food-burger.jpg" alt="">
+                        <div class="w-promo-overlay">
+                            <div class="w-promo-top">
+                                <div>
+                                    <strong>MAUDIT PUB</strong>
+                                    <span class="w-promo-addr">Vicolo della Fortuna, 21</span>
+                                </div>
+                                <span class="w-sponsor">★ SPONSOR</span>
+                            </div>
+                            <p class="w-promo-offer">MENU PANINO + PATATINE + BIRRA 🍔🍻</p>
+                            <span class="w-price"><s>21.00€</s> 15.00€</span>
+                            <span class="w-promo-timer">⏱ Scade tra: 18gg 23h</span>
+                            <span class="w-promo-cta">SWIPE A DESTRA PER IL BUONO →</span>
+                        </div>
+                    </article>
+
+                    <article class="w-card w-card--rail">
+                        <div class="w-card-top">
+                            <span class="w-pill w-pill--single">SINGOLA</span>
+                            <span class="w-pill w-pill--dist">5 km</span>
+                        </div>
+                        <h3 class="w-card-title">Chi per 4 chiacchiere e una passeggiata senza impegno?</h3>
+                        <div class="w-card-bottom">
+                            <span class="w-pill w-pill--muted">Età creatore: 29</span>
+                            <span class="w-pill w-pill--cat w-pill--cat-yellow">amicizia</span>
+                            <span class="w-expire">Scade tra 11 gg</span>
+                        </div>
+                    </article>
+
+                    <article class="w-card w-card--rail">
+                        <div class="w-card-top">
+                            <span class="w-pill w-pill--group">GRUPPO</span>
+                            <span class="w-pill w-pill--dist">4 km</span>
+                            <span class="w-pill w-pill--n">5</span>
+                        </div>
+                        <h3 class="w-card-title">Gruppo go-kart: pomeriggio in pista, posti ancora liberi!</h3>
+                        <div class="w-card-bottom">
+                            <span class="w-creator">
+                                <img src="./assets/mock/avatar-marco.jpg" alt="">
+                                <span>Marco</span>
+                            </span>
+                            <span class="w-pill w-pill--cat">sport</span>
+                            <span class="w-expire">Scade tra 7 gg</span>
+                        </div>
+                    </article>
+
+                    <article class="w-promo w-card--rail">
+                        <img src="./assets/mock/food-panino.jpg" alt="">
+                        <div class="w-promo-overlay">
+                            <div class="w-promo-top">
+                                <div>
+                                    <strong>DA POLDO FOOD &amp; LOVE</strong>
+                                    <span class="w-promo-addr">Via della Sapienza, 45</span>
+                                </div>
+                                <span class="w-sponsor">★ SPONSOR</span>
+                            </div>
+                            <p class="w-promo-offer">PANINO TONDO LUNGO E RUSTICO</p>
+                            <span class="w-price"><s>6.90€</s> 5.00€</span>
+                            <span class="w-promo-timer">⏱ Scade tra: 13gg 22h</span>
+                            <span class="w-promo-cta">SWIPE A DESTRA PER IL BUONO →</span>
+                        </div>
+                    </article>
+
+                    <article class="w-card w-card--rail">
+                        <div class="w-card-top">
+                            <span class="w-pill w-pill--group">GRUPPO</span>
+                            <span class="w-pill w-pill--dist">6 km</span>
+                            <span class="w-pill w-pill--n">4</span>
+                        </div>
+                        <h3 class="w-card-title">Sushi e giretto in centro sabato sera, cerchiamo ancora 2 persone</h3>
+                        <div class="w-card-bottom">
+                            <span class="w-pill w-pill--muted">Età creatore: 26</span>
+                            <span class="w-pill w-pill--cat w-pill--cat-yellow">cibo</span>
+                            <span class="w-expire">Scade tra 3 gg</span>
+                        </div>
+                    </article>
+
+                    <article class="w-promo w-card--rail">
+                        <img src="./assets/mock/tagliere-gintonic.jpg" alt="">
+                        <div class="w-promo-overlay">
+                            <div class="w-promo-top">
+                                <div>
+                                    <strong>CAPANNINA COCKTAIL BAR</strong>
+                                    <span class="w-promo-addr">Loc. Mulino, Chiantigiana</span>
+                                </div>
+                                <span class="w-sponsor">★ SPONSOR</span>
+                            </div>
+                            <p class="w-promo-offer">TAGLIERE E 2 GIN TONIC</p>
+                            <span class="w-price"><s>30.00€</s> 25.00€</span>
+                            <span class="w-promo-timer">⏱ Scade tra: 14gg 21h</span>
+                            <span class="w-promo-cta">SWIPE A DESTRA PER IL BUONO →</span>
+                        </div>
+                    </article>
+
+                    <article class="w-card w-card--rail">
+                        <div class="w-card-top">
+                            <span class="w-pill w-pill--group">GRUPPO</span>
+                            <span class="w-pill w-pill--dist">1 km</span>
+                            <span class="w-pill w-pill--n">10</span>
+                        </div>
+                        <h3 class="w-card-title">Cinema stasera: andiamo a vedere il film insieme, posti liberi</h3>
+                        <div class="w-card-bottom">
+                            <span class="w-creator">
+                                <img src="./assets/mock/avatar-sara.jpg" alt="">
+                                <span>Sara</span>
+                            </span>
+                            <span class="w-pill w-pill--cat w-pill--cat-red">spettacolo</span>
+                            <span class="w-expire">Scade tra 2 gg</span>
+                        </div>
+                    </article>
+
+                    <article class="w-promo w-card--rail w-promo--shot">
+                        <img src="./assets/mock/enoteca-perlage-card.jpg" alt="Enoteca Perlage — Bottiglia -15%">
+                    </article>
                 </div>
             </div>
-        </section>
-        <section class="locali-banner">
-            <h2>Hai un locale e vuoi attrarre più clienti?</h2>
-            <p>Wimii porta nel tuo locale i ragazzi della zona che cercano cosa fare e dove andare. Crea la tua offerta e fatti scoprire.</p>
-            <a class="locali-btn" href="./perLocali.html">Scopri Wimii per i locali →</a>
-        </section>
-        <section class="other-section last-section">
-            <h2>La connessione vera va oltre le foto</h2>
-            <p>Scarica Wimii</p>
-            <button id="downloadFromPlaystore" onclick="window.open('https://play.google.com/store/apps/details?id=com.wimii.app', '_blank')"><img  class="icon" src="assets/PlayStoreIcon.png"></img>Scarica ora!</button>
-            <button id="actionButton" onclick="window.open('https://apps.apple.com/it/app/id6758889696', '_blank')"><img  class="icon" src="assets/apple.png"></img>Scarica ora!!</button>
-                
         </section>
 
+        <section class="locali-split">
+            <div class="locali-split-visual" aria-hidden="true"></div>
+            <div class="locali-split-copy reveal">
+                <p class="eyebrow">Per i locali</p>
+                <h2>Porta i ragazzi e le ragazze da te</h2>
+                <p>Offerte esclusive, zero commissioni, iscrizione gratis. Compari dove cercano cosa fare.</p>
+                <a class="btn-primary" href="./perLocali.html">Scopri Wimii per i locali</a>
+            </div>
+        </section>
 
-
-        <!--
-
-        <section class="other-section">
-            <h2>Un'app diversa. Pensata per te.</h2>
-            <p>Qui, la sicurezza e la qualità vengono prima di tutto. Per questo abbiamo due regole semplici:</p>
-            <ul>
-                <li>Proponi in libertà: Come creatore di un'iniziativa, resti anonimo. Solo tu decidi a chi svelarti.</li>
-                <li>Tu hai il controllo: Solo il creatore vede chi è interessato e decide chi far entrare nel gruppo. Niente caos, solo persone motivate.</li>
-            </ul>
-        </section>video-text
-        <section class="other-section">
-            <h2>Dall'Idea alla Realtà.</h2>
-            <p>"Volevo creare un gruppo di lettura fantasy, ma non sapevo da dove iniziare. La prima serata eravamo in cinque. Incredibile." <em> - Wimii, Fondatore e primo utente</em> </p>
-            <div>
-                <div class="polaroid-card">  
-                    <img class="polaroid-image" src="./assets/chat telefono.avif" alt="">
-                    <img class="polaroid-border" src="./assets/polaroid.svg" alt="" srcset="">
-                    <p class="polaroid-text">Volevo creare un gruppo di lettura fantasy, ma non sapevo  </p>
+        <section class="closing">
+            <div class="closing-inner reveal">
+                <p class="hero-brand closing-brand">Wimii</p>
+                <h2>La connessione vera<br>va oltre le foto</h2>
+                <p>Gratuita. Locale. Fatta per uscire.</p>
+                <div class="hero-cta">
+                    <a class="btn-store light" href="https://onelink.to/qyhcnp" target="_blank" rel="noopener">Google Play</a>
+                    <a class="btn-store light" href="https://onelink.to/qyhcnp" target="_blank" rel="noopener">App Store</a>
                 </div>
-                <img id="telephon-screen"src="./assets/chat telefono.png" alt="">
             </div>
         </section>
-        <section class="other-section">
-            <h2>Quale sarà la tua prossima avventura?</h2>
-            <div class="polaroid-card" style="transform: rotate(-4deg);">
-                 <img class="polaroid-image" src="./assets/chat telefono.avif" alt="">
-                    <img class="polaroid-border" src="./assets/polaroid.svg" alt="" srcset="">
-                    <p class="polaroid-text">Volevo creare un gruppo di lettura fantasy, ma non sapevo  </p>
-            </div>
-            <div class="polaroid-card" style="transform: rotate(2deg);">
-                 <img class="polaroid-image" src="./assets/chat telefono.avif" alt="">
-                    <img class="polaroid-border" src="./assets/polaroid.svg" alt="" srcset="">
-                    <p class="polaroid-text">Volevo creare un gruppo di lettura fantasy, ma non sapevo  </p>
-            </div>
-            <div class="polaroid-card" style="transform: rotate(-6deg);">
-                 <img class="polaroid-image" src="./assets/chat telefono.avif" alt="">
-                    <img class="polaroid-border" src="./assets/polaroid.svg" alt="" srcset="">
-                    <p class="polaroid-text">Volevo creare un gruppo di lettura fantasy, ma non sapevo  </p>
-            </div>
-            <div class="polaroid-card" style="transform: rotate(1deg);">
-                 <img class="polaroid-image" src="./assets/chat telefono.avif" alt="">
-                    <img class="polaroid-border" src="./assets/polaroid.svg" alt="" srcset="">
-                    <p class="polaroid-text">Volevo creare un gruppo di lettura fantasy, ma non sapevo  </p>
-            </div>
-            <div class="polaroid-card" style="transform: rotate(-3deg);">
-                 <img class="polaroid-image" src="./assets/chat telefono.avif" alt="">
-                    <img class="polaroid-border" src="./assets/polaroid.svg" alt="" srcset="">
-                    <p class="polaroid-text">Volevo creare un gruppo di lettura fantasy, ma non sapevo  </p>
-            </div>
-            <div class="polaroid-card" style="transform: rotate(2deg);">
-                 <img class="polaroid-image" src="./assets/chat telefono.avif" alt="">
-                    <img class="polaroid-border" src="./assets/polaroid.svg" alt="" srcset="">
-                    <p class="polaroid-text">Volevo creare un gruppo di lettura fantasy, ma non sapevo  </p>
-            </div>
-        </section>
-        <section class="other-section">
-            <h2>Allora iniziamo?</h2>
-            <p>La tua prossima storia inizia con un tap</p>
-            <button id="startButton">Play store</button>
-            <button id="asdasd">App store</button>
-        </section>
-    -->
     </main>
+
     <footer>
         <p>&copy; Wimii. All rights reserved.</p>
         <div class="footer-grid">
@@ -345,14 +483,16 @@
                     <li><a target="_blank" href="./terms.pdf">Terms of Service</a></li>
                 </ul>
             </nav>
-        
             <div>
                 <p>Contatti</p>
                 <nav class="footer-nav" id="contatti">
                     <ul>
                         <li>
-                            <img src="./assets/mail_24x24.svg" alt="" style="color: white">
+                            <img src="./assets/mail_24x24.svg" alt="">
                             <p>wimii.info@gmail.com</p>
+                        </li>
+                        <li>
+                            <p><a href="https://www.instagram.com/wimii.app/" target="_blank" rel="noopener">Instagram @wimii.app</a></p>
                         </li>
                     </ul>
                 </nav>
@@ -360,24 +500,14 @@
             <div>
                 <nav class="footer-nav" id="dati-fiscali">
                     <ul>
-                        <li>
-                            DANIELLI RICCARDO
-                        </li>
-                        <li>
-                            Strada del Petriccio e Belriguardo 80
-                        </li>
-                        <li>
-                            53100 Siena (SI)
-                        </li>
-                        <li>
-                            P.IVA 01629960525
-                        </li>
+                        <li>DANIELLI RICCARDO</li>
+                        <li>Strada del Petriccio e Belriguardo 80</li>
+                        <li>53100 Siena (SI)</li>
+                        <li>P.IVA 01629960525</li>
                     </ul>
                 </nav>
             </div>
-            
-       </div>
+        </div>
     </footer>
-    
 </body>
 </html>
