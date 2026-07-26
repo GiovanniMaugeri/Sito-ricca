@@ -12,14 +12,14 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Wimii">
     <meta property="og:title" content="Wimii">
-    <meta property="og:description" content="Scopri l'iniziativa, lo sconto o l'evento che ti è stato condiviso">
+    <meta property="og:description" content="Apri Wimii per accettare un invito o scoprire l'iniziativa, lo sconto o l'evento condiviso.">
     <meta property="og:image" content="https://wimii.app/assets/logo.png">
     <meta property="og:image:alt" content="Wimii">
     <meta property="og:url" content="https://wimii.app">
     <meta property="og:locale" content="it_IT">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Wimii">
-    <meta name="twitter:description" content="Scopri l'iniziativa, lo sconto o l'evento che ti è stato condiviso">
+    <meta name="twitter:description" content="Apri Wimii per accettare un invito o scoprire l'iniziativa, lo sconto o l'evento condiviso.">
     <meta name="twitter:image" content="https://wimii.app/assets/logo.png">
     <style>
         body {
@@ -53,8 +53,31 @@
             font-size: 1rem;
             color: #555;
             max-width: 420px;
-            margin-bottom: 4ch;
+            margin-bottom: 2ch;
             line-height: 1.5;
+        }
+        p.note {
+            font-size: 0.9rem;
+            color: #777;
+            max-width: 420px;
+            margin-bottom: 4ch;
+            line-height: 1.45;
+        }
+        .code-pill {
+            display: none;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            color: #2D2D2D;
+            background: #fff;
+            border: 1px solid #E0E0E0;
+            border-radius: 10px;
+            padding: 0.7ch 1.4ch;
+            margin-bottom: 2.5ch;
+        }
+        .code-pill.visible {
+            display: inline-block;
         }
         .btn-group {
             display: flex;
@@ -113,6 +136,8 @@
         <p class="subtitle" id="pageSubtitle">
             Qualcuno ha condiviso con te un'iniziativa. Aprila nell'app Wimii per dare un'occhiata!
         </p>
+        <div class="code-pill" id="codePill" aria-label="Codice invito"></div>
+        <p class="note hidden" id="pageNote"></p>
 
         <div class="btn-group">
             <a id="openAppBtn" href="#" class="btn btn-primary">
@@ -136,8 +161,10 @@
     <script>
         (function() {
             var path = window.location.pathname || '';
-            var match = path.match(/^\/(i|s|e)\/([^\/]+)/);
-            var isSharedCard = !!match;
+            var shareMatch = path.match(/^\/(i|s|e)\/([^\/?#]+)/);
+            var inviteMatch = path.match(/^\/r\/([^\/?#]+)/);
+            var isInvite = !!inviteMatch;
+            var isSharedCard = !!shareMatch;
 
             var ua = navigator.userAgent || '';
             var isIOS = /iPhone|iPad|iPod/i.test(ua);
@@ -145,11 +172,13 @@
 
             var titleEl = document.getElementById('pageTitle');
             var subtitleEl = document.getElementById('pageSubtitle');
+            var noteEl = document.getElementById('pageNote');
+            var codePill = document.getElementById('codePill');
             var openAppBtn = document.getElementById('openAppBtn');
             var iosBtn = document.getElementById('iosBtn');
             var androidBtn = document.getElementById('androidBtn');
 
-            if (!isSharedCard) {
+            if (!isInvite && !isSharedCard) {
                 titleEl.textContent = 'Pagina non trovata';
                 subtitleEl.textContent = 'Ti stiamo riportando alla home...';
                 openAppBtn.classList.add('hidden');
@@ -159,9 +188,37 @@
                 return;
             }
 
-            var type = match[1];
-            var id = match[2];
-            var deepLink = 'wimii://' + type + '/' + id;
+            var type;
+            var id;
+            var deepLink;
+            var httpsLink = window.location.origin + window.location.pathname;
+
+            if (isInvite) {
+                type = 'r';
+                id = decodeURIComponent(inviteMatch[1]);
+                deepLink = 'wimii://r/' + encodeURIComponent(id);
+
+                titleEl.textContent = 'Ti hanno invitato su Wimii';
+                subtitleEl.textContent = 'Apri l\'app per accettare l\'invito, oppure scaricala e completa la registrazione.';
+                noteEl.textContent = 'Dopo l\'installazione riapri questo link: l\'invito resterà collegato al tuo account.';
+                noteEl.classList.remove('hidden');
+                codePill.textContent = id;
+                codePill.classList.add('visible');
+
+                try {
+                    localStorage.setItem('wimii_pending_invite', id);
+                    localStorage.setItem('wimii_pending_invite_url', httpsLink);
+                    localStorage.setItem('wimii_pending_invite_at', String(Date.now()));
+                } catch (e) {}
+
+                // Play Install Referrer: l'app può leggere invite=<code> al primo avvio
+                androidBtn.href = 'https://play.google.com/store/apps/details?id=com.wimii.app&referrer=' +
+                    encodeURIComponent('invite=' + id + '&utm_source=wimii_invite&utm_content=' + id);
+            } else {
+                type = shareMatch[1];
+                id = shareMatch[2];
+                deepLink = 'wimii://' + type + '/' + id;
+            }
 
             openAppBtn.href = deepLink;
 
@@ -171,6 +228,7 @@
                 iosBtn.classList.add('hidden');
             }
 
+            // Universal / App Links aprono l'app se installata; qui fallback custom scheme
             if (isIOS || isAndroid) {
                 setTimeout(function() {
                     window.location.href = deepLink;

@@ -22,6 +22,10 @@
             "comment": "Share evento partner"
           },
           {
+            "/": "/r/*",
+            "comment": "Invito amico / referral"
+          },
+          {
             "/": "*",
             "exclude": true,
             "comment": "Tutto il resto resta sul sito (homepage, comeFunziona, privacy, terms, ecc.)"
