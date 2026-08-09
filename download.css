@@ -192,6 +192,25 @@
     animation: downloadRise 1s cubic-bezier(0.22, 1, 0.36, 1) 0.28s both;
 }
 
+.download-escape {
+    margin-top: 0.85rem;
+    max-width: 34ch;
+    padding: 0.75rem 0.9rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: rgba(255, 255, 255, 0.78) !important;
+}
+
+.download-escape[hidden] {
+    display: none !important;
+}
+
+.download-escape strong {
+    color: #ffc107;
+    font-weight: 700;
+}
+
 .download-footer {
     position: relative;
     z-index: 2;
