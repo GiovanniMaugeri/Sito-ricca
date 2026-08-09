@@ -1,6 +1,7 @@
 (function () {
     var APP_STORE_HTTPS = 'https://apps.apple.com/it/app/id6758889696';
     var APP_STORE_ITMS = 'itms-apps://apps.apple.com/it/app/id6758889696';
+    var APP_STORE_IG = 'instagram://extbrowser/?url=' + encodeURIComponent(APP_STORE_HTTPS);
     var PLAY_HTTPS = 'https://play.google.com/store/apps/details?id=com.wimii.app';
     var PLAY_MARKET = 'market://details?id=com.wimii.app';
 
@@ -10,47 +11,40 @@
     var isInstagram = /Instagram/i.test(ua);
 
     function openIosStore(e) {
-        if (e) e.preventDefault();
+        // Fuori da Instagram: lascia il link https normale.
+        if (!isInstagram) return;
 
-        // Instagram: chiede di aprire Safari (serve un tap utente).
-        if (isInstagram) {
-            window.location.href = 'instagram://extbrowser/?url=' + encodeURIComponent(APP_STORE_HTTPS);
-        }
-
+        e.preventDefault();
+        // Solo schemi che escono dal browser IG.
+        // NON usare https://apps.apple.com qui: in IG diventa la schermata bianca.
+        window.location.href = APP_STORE_IG;
         setTimeout(function () {
             window.location.href = APP_STORE_ITMS;
-        }, 250);
-
-        setTimeout(function () {
-            window.location.href = APP_STORE_HTTPS;
-        }, 700);
+        }, 400);
     }
 
     function openAndroidStore(e) {
-        if (e) e.preventDefault();
+        if (!isInstagram && !isAndroid) return;
+        e.preventDefault();
         window.location.href = PLAY_MARKET;
         setTimeout(function () {
             window.location.href = PLAY_HTTPS;
         }, 500);
     }
 
-    function bind(el, handler) {
-        if (!el) return;
-        el.removeAttribute('target');
-        el.addEventListener('click', handler);
-    }
-
     document.querySelectorAll('[data-store="ios"]').forEach(function (el) {
-        el.href = APP_STORE_HTTPS;
-        bind(el, openIosStore);
+        el.removeAttribute('target');
+        // Su Instagram il href nativo deve già essere lo schema giusto (non https).
+        el.href = isInstagram ? APP_STORE_IG : APP_STORE_HTTPS;
+        el.addEventListener('click', openIosStore);
     });
 
     document.querySelectorAll('[data-store="android"]').forEach(function (el) {
-        el.href = PLAY_HTTPS;
-        bind(el, openAndroidStore);
+        el.removeAttribute('target');
+        el.href = isInstagram ? PLAY_MARKET : PLAY_HTTPS;
+        el.addEventListener('click', openAndroidStore);
     });
 
-    // Ordina i bottoni nella landing /download (store del dispositivo prima).
     var wrap = document.getElementById('storeButtons');
     var iosBtn = document.getElementById('iosBtn');
     var androidBtn = document.getElementById('androidBtn');
