@@ -180,11 +180,10 @@
 
             if (!isInvite && !isSharedCard) {
                 titleEl.textContent = 'Pagina non trovata';
-                subtitleEl.textContent = 'Ti stiamo riportando alla home...';
-                openAppBtn.classList.add('hidden');
-                setTimeout(function() {
-                    window.location.replace('/');
-                }, 1200);
+                subtitleEl.textContent = 'Questa pagina non esiste. Puoi scaricare Wimii qui sotto oppure tornare alla home.';
+                openAppBtn.textContent = 'Torna alla home';
+                openAppBtn.href = '/';
+                openAppBtn.classList.remove('hidden');
                 return;
             }
 

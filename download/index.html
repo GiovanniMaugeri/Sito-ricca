@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <title>Scarica Wimii — App Store e Google Play</title>
+    <meta name="description" content="Scarica Wimii su App Store o Google Play. Iniziative vere, persone vere, a uno swipe da te.">
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/common.css">
+    <link rel="stylesheet" href="/download.css">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Wimii">
+    <meta property="og:title" content="Scarica Wimii">
+    <meta property="og:description" content="Iniziative vere, persone vere, a uno swipe da te. Scarica l'app su App Store o Google Play.">
+    <meta property="og:image" content="https://wimii.app/assets/logo.png">
+    <meta property="og:image:alt" content="Wimii">
+    <meta property="og:url" content="https://wimii.app/download">
+    <meta property="og:locale" content="it_IT">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Scarica Wimii">
+    <meta name="twitter:description" content="Iniziative vere, persone vere, a uno swipe da te. Scarica l'app su App Store o Google Play.">
+    <meta name="twitter:image" content="https://wimii.app/assets/logo.png">
+    <meta name="apple-itunes-app" content="app-id=6758889696">
+</head>
+<body class="page-download">
+    <div class="download-bg" aria-hidden="true"></div>
+    <div class="download-grain" aria-hidden="true"></div>
+
+    <header class="download-header">
+        <a class="logo" href="/">
+            <img src="/assets/logo.png" alt="Wimii" id="logo">
+            <h1>Wimii</h1>
+        </a>
+        <a class="site-link" href="/">Vai al sito</a>
+    </header>
+
+    <main class="download-main">
+        <div class="download-copy">
+            <img class="download-logo" src="/assets/logo.png" alt="Wimii">
+            <p class="download-brand">Wimii</p>
+            <h2 class="download-title">Scarica l’app</h2>
+            <p class="download-sub">Iniziative vere, persone vere, a uno swipe da te.</p>
+
+            <div class="download-cta" id="storeButtons">
+                <a
+                    id="iosBtn"
+                    class="btn-store btn-store-primary"
+                    href="https://apps.apple.com/it/app/id6758889696"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    <img class="icon" src="/assets/apple.png" alt="">
+                    App Store
+                </a>
+                <a
+                    id="androidBtn"
+                    class="btn-store btn-store-secondary"
+                    href="https://play.google.com/store/apps/details?id=com.wimii.app"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    <img class="icon" src="/assets/PlayStoreIcon.png" alt="">
+                    Google Play
+                </a>
+            </div>
+
+            <p class="download-hint" id="downloadHint">
+                Tocca il pulsante del tuo store per scaricare.
+            </p>
+        </div>
+    </main>
+
+    <footer class="download-footer">
+        <p>&copy; Wimii. All rights reserved.</p>
+    </footer>
+
+    <script>
+        (function () {
+            var ua = navigator.userAgent || '';
+            var isIOS = /iPhone|iPad|iPod/i.test(ua);
+            var isAndroid = /Android/i.test(ua);
+            var wrap = document.getElementById('storeButtons');
+            var iosBtn = document.getElementById('iosBtn');
+            var androidBtn = document.getElementById('androidBtn');
+            var hint = document.getElementById('downloadHint');
+
+            if (!wrap || !iosBtn || !androidBtn) return;
+
+            // Metti lo store del dispositivo per primo e in evidenza.
+            // Niente redirect automatico: su Instagram iOS spesso fallisce.
+            if (isAndroid) {
+                wrap.insertBefore(androidBtn, iosBtn);
+                androidBtn.className = 'btn-store btn-store-primary';
+                iosBtn.className = 'btn-store btn-store-secondary';
+                if (hint) hint.textContent = 'Tocca Google Play per installare Wimii.';
+            } else if (isIOS) {
+                wrap.insertBefore(iosBtn, androidBtn);
+                iosBtn.className = 'btn-store btn-store-primary';
+                androidBtn.className = 'btn-store btn-store-secondary';
+                if (hint) hint.textContent = 'Tocca App Store per installare Wimii.';
+            }
+        })();
+    </script>
+</body>
+</html>
