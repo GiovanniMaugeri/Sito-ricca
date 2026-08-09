@@ -31,6 +31,7 @@
 
     <script src="script.js" defer></script>
     <script src="./navBarScript.js"></script>
+    <script src="./storeLinks.js" defer></script>
     <script>
         window.addEventListener("load", function() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -94,10 +95,10 @@
                 <h2 class="hero-title">La vita non sta<br>nel feed</h2>
                 <p class="hero-sub">Iniziative vere, persone vere, a uno swipe da te.</p>
                 <div class="hero-cta">
-                    <a class="btn-store" href="https://play.google.com/store/apps/details?id=com.wimii.app" target="_blank" rel="noopener">
+                    <a class="btn-store" data-store="android" href="https://play.google.com/store/apps/details?id=com.wimii.app" rel="noopener">
                         <img class="icon" src="assets/PlayStoreIcon.png" alt="">Google Play
                     </a>
-                    <a class="btn-store btn-store-ghost" href="https://apps.apple.com/it/app/id6758889696" target="_blank" rel="noopener">
+                    <a class="btn-store btn-store-ghost" data-store="ios" href="https://apps.apple.com/it/app/id6758889696" rel="noopener">
                         <img class="icon" src="assets/apple.png" alt="">App Store
                     </a>
                 </div>
@@ -468,8 +469,8 @@
                 <h2>La connessione vera<br>va oltre le foto</h2>
                 <p>Gratuita. Locale. Fatta per uscire.</p>
                 <div class="hero-cta">
-                    <a class="btn-store light" href="https://play.google.com/store/apps/details?id=com.wimii.app" target="_blank" rel="noopener">Google Play</a>
-                    <a class="btn-store light" href="https://apps.apple.com/it/app/id6758889696" target="_blank" rel="noopener">App Store</a>
+                    <a class="btn-store light" data-store="android" href="https://play.google.com/store/apps/details?id=com.wimii.app" rel="noopener">Google Play</a>
+                    <a class="btn-store light" data-store="ios" href="https://apps.apple.com/it/app/id6758889696" rel="noopener">App Store</a>
                 </div>
             </div>
         </section>
