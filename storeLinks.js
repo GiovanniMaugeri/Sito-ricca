@@ -48,18 +48,15 @@
     var wrap = document.getElementById('storeButtons');
     var iosBtn = document.getElementById('iosBtn');
     var androidBtn = document.getElementById('androidBtn');
-    var hint = document.getElementById('downloadHint');
     if (wrap && iosBtn && androidBtn) {
         if (isAndroid) {
             wrap.insertBefore(androidBtn, iosBtn);
             androidBtn.className = 'btn-store btn-store-primary';
             iosBtn.className = 'btn-store btn-store-secondary';
-            if (hint) hint.textContent = 'Tocca Google Play per installare Wimii.';
         } else if (isIOS) {
             wrap.insertBefore(iosBtn, androidBtn);
             iosBtn.className = 'btn-store btn-store-primary';
             androidBtn.className = 'btn-store btn-store-secondary';
-            if (hint) hint.textContent = 'Tocca App Store per installare Wimii.';
         }
     }
 })();

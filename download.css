@@ -85,7 +85,7 @@
 }
 
 .download-copy {
-    width: min(100%, 26rem);
+    width: min(100%, 22rem);
     text-align: center;
     animation: downloadRise 1s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
@@ -115,18 +115,18 @@
     font-family: var(--display);
     font-weight: 800;
     font-size: clamp(1.05rem, 2.5vw, 1.2rem);
-    letter-spacing: 0.28em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: #ffc107;
     margin-bottom: 0.85rem;
 }
 
 .download-title {
-    font-family: var(--display);
+    font-family: "Poppins", sans-serif;
     font-weight: 800;
     font-size: clamp(2.6rem, 9vw, 3.6rem);
     line-height: 0.95;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.06em;
     color: #fff;
     margin-bottom: 1rem;
 }
@@ -179,17 +179,6 @@
 .page-download .btn-store-secondary:hover {
     background: rgba(255, 255, 255, 0.16);
     box-shadow: none;
-}
-
-.download-hint {
-    margin-top: 1.5rem;
-    font-size: 0.82rem;
-    color: rgba(255, 255, 255, 0.55) !important;
-    line-height: 1.45;
-    max-width: 32ch;
-    margin-left: auto;
-    margin-right: auto;
-    animation: downloadRise 1s cubic-bezier(0.22, 1, 0.36, 1) 0.28s both;
 }
 
 .download-escape {
