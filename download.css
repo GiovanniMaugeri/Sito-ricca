@@ -289,11 +289,52 @@
     color: #ffc107 !important;
 }
 
+/* ===== BARRA FISSA IN BASSO ===== */
+.download-sticky {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 20;
+    display: flex;
+    gap: 0.6rem;
+    padding: 0.7rem 1rem calc(0.7rem + env(safe-area-inset-bottom, 0px));
+    background: rgba(28, 8, 23, 0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    animation: stickyUp 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes stickyUp {
+    from { transform: translateY(100%); }
+    to { transform: none; }
+}
+
+.download-sticky[hidden] {
+    display: none !important;
+}
+
+.page-download .download-sticky .btn-store {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 0.8rem 0.5rem;
+    font-size: 0.9rem;
+    gap: 0.45rem;
+    white-space: nowrap;
+}
+
+.page-download .download-sticky .btn-store .icon {
+    width: 18px;
+    height: 18px;
+}
+
+/* Spazio perché la barra non copra il piè di pagina */
 .download-footer {
     position: relative;
     z-index: 2;
     text-align: center;
-    padding: 0 1.5rem 1.75rem;
+    padding: 0 1.5rem calc(1.75rem + 4.5rem);
 }
 
 .download-footer p {

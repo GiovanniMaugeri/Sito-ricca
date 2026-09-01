@@ -83,5 +83,42 @@
     <footer class="download-footer">
         <p>&copy; Wimii. All rights reserved.</p>
     </footer>
+
+    <!-- Barra fissa: compare solo quando i pulsanti veri escono dallo schermo,
+         così chi non scorre ha comunque l'app a portata di pollice. -->
+    <div class="download-sticky" id="stickyCta" hidden>
+        <a class="btn-store btn-store-primary" data-store="ios"
+           href="https://apps.apple.com/it/app/id6758889696" rel="noopener">
+            <img class="icon" src="/assets/apple.png" alt="">App Store
+        </a>
+        <a class="btn-store btn-store-secondary" data-store="android"
+           href="https://play.google.com/store/apps/details?id=com.wimii.app" rel="noopener">
+            <img class="icon" src="/assets/PlayStoreIcon.png" alt="">Google Play
+        </a>
+    </div>
+
+    <script>
+        (function () {
+            var bar = document.getElementById("stickyCta");
+            var main = document.getElementById("storeButtons");
+            if (!bar || !main) return;
+
+            // Confronto diretto delle posizioni, chiamato in modo sincrono a
+            // ogni scorrimento: e' una sola lettura di layout su un elemento,
+            // e non dipende da requestAnimationFrame ne' da IntersectionObserver.
+            function sync() {
+                var r = main.getBoundingClientRect();
+                var vh = window.innerHeight || document.documentElement.clientHeight;
+                // Nasconde la barra solo quando i pulsanti veri sono davvero
+                // in vista, non appena spuntano di un pelo dal bordo.
+                bar.hidden = (r.top < vh - 60 && r.bottom > 20);
+            }
+
+            window.addEventListener("scroll", sync, { passive: true });
+            window.addEventListener("resize", sync, { passive: true });
+            window.addEventListener("orientationchange", sync);
+            sync();
+        })();
+    </script>
 </body>
 </html>
