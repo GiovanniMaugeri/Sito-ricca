@@ -6,8 +6,8 @@
         "appIDs": [ "822M59YW4N.com.wimii.app" ],
         "components": [
           {
-            "?": { "p": "*" },
-            "comment": "QR locale: qualsiasi URL con ?p=... apre app"
+            "?": { "p": "staff_*" },
+            "comment": "Solo i vecchi inviti staff ?p=staff_... aprono l'app. I QR dei locali (?p=Wimii020) restano sul sito, che spiega di scansionare da dentro l'app: e' li' che il buono viene applicato."
           },
           {
             "/": "/i/*",
