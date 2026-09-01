@@ -11,7 +11,6 @@
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="common.css">
     <link rel="stylesheet" href="index.css">
 
@@ -86,30 +85,43 @@
 
     <main>
         <section class="hero">
-            <video class="hero-video" autoplay muted loop playsinline preload="auto" disablepictureinpicture id="myVideo">
-                <source src="./assets/video.mp4" type="video/mp4">
-            </video>
-            <div class="hero-veil" aria-hidden="true"></div>
-            <div class="hero-copy">
-                <p class="hero-brand">Wimii</p>
-                <h2 class="hero-title">La vita non sta<br>nel feed</h2>
-                <p class="hero-sub">Iniziative vere, persone vere, a uno swipe da te.</p>
-                <div class="hero-cta">
-                    <a class="btn-store" data-store="android" href="https://play.google.com/store/apps/details?id=com.wimii.app" rel="noopener">
-                        <img class="icon" src="assets/PlayStoreIcon.png" alt="">Google Play
-                    </a>
-                    <a class="btn-store btn-store-ghost" data-store="ios" href="https://apps.apple.com/it/app/id6758889696" rel="noopener">
-                        <img class="icon" src="assets/apple.png" alt="">App Store
-                    </a>
+            <div class="hero-blob hero-blob--a" aria-hidden="true"></div>
+            <div class="hero-blob hero-blob--b" aria-hidden="true"></div>
+
+            <div class="hero-inner">
+                <div class="hero-copy">
+                    <p class="hero-brand">Wimii</p>
+                    <h2 class="hero-title">Fai le cose che ami.<br>Con gente nuova.</h2>
+                    <p class="hero-sub">Proponi un'uscita o entra in una già aperta. Scegli tu chi accettare
+                        nel gruppo, poi ci si vede dal vivo.</p>
+                    <div class="hero-cta">
+                        <a class="btn-store" data-store="android" href="https://play.google.com/store/apps/details?id=com.wimii.app" rel="noopener">
+                            <img class="icon" src="assets/PlayStoreIcon.png" alt="">Google Play
+                        </a>
+                        <a class="btn-store btn-store-ghost" data-store="ios" href="https://apps.apple.com/it/app/id6758889696" rel="noopener">
+                            <img class="icon" src="assets/apple.png" alt="">App Store
+                        </a>
+                    </div>
+                    <p class="hero-note">Gratis su iOS e Android</p>
+                </div>
+
+                <div class="hero-media">
+                    <div class="video-frame">
+                        <video class="promo-video" id="promoVideo" autoplay muted loop playsinline
+                               preload="metadata" disablepictureinpicture poster="./assets/promo-poster.jpg">
+                            <source src="./assets/promo.mp4" type="video/mp4">
+                        </video>
+                    </div>
                 </div>
             </div>
+
             <button id="scrollDownBtn" type="button" aria-label="Scorri"><span></span></button>
         </section>
 
         <section class="strip-type">
             <p class="strip-line reveal">
-                <span>Scorri meno.</span>
-                <span class="accent">Vivi di più.</span>
+                <span>Esci dalla routine.</span>
+                <span class="accent">Trova la tua gente.</span>
             </p>
         </section>
 
@@ -117,8 +129,8 @@
         <section class="product">
             <div class="product-text reveal">
                 <p class="eyebrow">Come funziona</p>
-                <h2>Uno swipe.<br>Una storia.</h2>
-                <p>Destra se ti interessa, sinistra se passi. Puoi creare in anonimo oppure mostrare subito il tuo profilo. Poi organizzate tutto in chat.</p>
+                <h2>Proponi tu.<br>O entra in un'idea.</h2>
+                <p>Crea l'uscita che hai in testa, oppure scorri quelle già aperte vicino a te: destra se ti interessa, sinistra se passi. Puoi proporre in anonimo o metterci subito la faccia.</p>
                 <a class="text-link" href="./comeFunziona.html">Scopri il flusso completo →</a>
             </div>
             <div class="product-stage reveal" aria-hidden="true">
@@ -197,8 +209,8 @@
         <!-- Moments -->
         <section class="moments">
             <div class="moments-head reveal">
-                <h2>Cose che succedono su Wimii</h2>
-                <p>Non profili da giudicare. Idee da vivere.</p>
+                <h2>Persone e attività che trovi su Wimii</h2>
+                <p>Gente vera che fa cose vere, a pochi chilometri da te.</p>
             </div>
             <div class="moments-track">
                 <article class="moment">
@@ -225,9 +237,9 @@
         <!-- Chat mock -->
         <section class="chat-cinema">
             <div class="chat-cinema-copy reveal">
-                <p class="eyebrow">Dopo l’accettazione</p>
-                <h2>Dallo swipe<br>alla chat</h2>
-                <p>Singola o di gruppo: organizzi ora, luogo e dettagli con chi ha detto sì.</p>
+                <p class="eyebrow">Il gruppo lo scegli tu</p>
+                <h2>Accetti chi vuoi,<br>dopo organizzate</h2>
+                <p>Chi crea l'iniziativa sceglie chi aggiungere tra le persone che chiedono di partecipare. Da lì si passa in chat: ora, luogo, dettagli. E ci si vede dal vivo.</p>
             </div>
             <div class="chat-cinema-stage reveal">
                 <div class="chat-glow" aria-hidden="true"></div>
@@ -297,8 +309,8 @@
         <!-- Marquee: iniziative utente + promo locali (stile app) -->
         <section class="marquee-block" id="iniziative">
             <div class="marquee-head reveal">
-                <h2>Iniziative e promo che girano ora</h2>
-                <p>Card delle persone e offerte sponsor dei locali — come le vedi nell’app.</p>
+                <h2>Iniziative e promo sempre nuove</h2>
+                <p>Card delle persone e offerte sponsor dei locali.</p>
             </div>
             <div class="marquee" aria-hidden="true">
                 <div class="marquee-inner" id="marqueeTrack">
@@ -457,8 +469,8 @@
             <div class="locali-split-visual" aria-hidden="true"></div>
             <div class="locali-split-copy reveal">
                 <p class="eyebrow">Per i locali</p>
-                <h2>Porta i ragazzi e le ragazze da te</h2>
-                <p>Offerte esclusive, zero commissioni, iscrizione gratis. Compari dove cercano cosa fare.</p>
+                <h2>Ottieni visibilità e porta più persone al tuo locale</h2>
+                <p>Gli utenti cercano posti in cui trovarsi, e trovano il tuo. Iscrizione gratis, zero commissioni.</p>
                 <a class="btn-primary" href="./perLocali.html">Scopri Wimii per i locali</a>
             </div>
         </section>
@@ -466,8 +478,8 @@
         <section class="closing">
             <div class="closing-inner reveal">
                 <p class="hero-brand closing-brand">Wimii</p>
-                <h2>La connessione vera<br>va oltre le foto</h2>
-                <p>Gratuita. Locale. Fatta per uscire.</p>
+                <h2>L'app è solo l'inizio.<br>Il resto succede fuori.</h2>
+                <p>Gratis, vicino a te, fatta per farti uscire di casa.</p>
                 <div class="hero-cta">
                     <a class="btn-store light" data-store="android" href="https://play.google.com/store/apps/details?id=com.wimii.app" rel="noopener">Google Play</a>
                     <a class="btn-store light" data-store="ios" href="https://apps.apple.com/it/app/id6758889696" rel="noopener">App Store</a>

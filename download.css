@@ -1,11 +1,11 @@
 /* ===== DOWNLOAD LANDING (IG / bio) ===== */
 
 .page-download {
-    --display: "Syne", "Poppins", sans-serif;
+    --display: "Poppins", sans-serif;
     min-height: 100vh;
     min-height: 100dvh;
     color: #fff;
-    background: #0a0f3d;
+    background: #2E1026;
     overflow-x: hidden;
 }
 
@@ -21,8 +21,8 @@
     background:
         radial-gradient(ellipse 70% 55% at 15% 20%, rgba(233, 30, 140, 0.35), transparent 55%),
         radial-gradient(ellipse 60% 50% at 90% 75%, rgba(255, 154, 26, 0.22), transparent 50%),
-        radial-gradient(ellipse 50% 40% at 50% 100%, rgba(26, 43, 143, 0.8), transparent 60%),
-        linear-gradient(160deg, #0a0f3d 0%, #12185a 45%, #1a0f4a 100%);
+        radial-gradient(ellipse 50% 40% at 50% 100%, rgba(196, 18, 114, 0.75), transparent 60%),
+        linear-gradient(160deg, #2E1026 0%, #4A1436 45%, #2E1026 100%);
     animation: bgDrift 18s ease-in-out infinite alternate;
 }
 
@@ -166,7 +166,7 @@
 
 .page-download .btn-store-primary {
     background: #fff;
-    color: #0a0f3d;
+    color: #2E1026;
 }
 
 .page-download .btn-store-secondary {

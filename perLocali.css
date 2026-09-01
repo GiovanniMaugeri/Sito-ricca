@@ -3,8 +3,9 @@ main {
 }
 
 /* ===== HERO ===== */
+/* Stesso nucleo blu della home, ma l'accento vira all'ambra: è la porta business. */
 .locali-hero {
-    background: var(--grad-brand);
+    background: linear-gradient(135deg, var(--plum) 0%, var(--accent-deep) 38%, #7a3f8c 72%, var(--accent-deep) 100%);
     color: var(--white);
     text-align: center;
     padding: 6rem 1.5rem;
@@ -18,7 +19,7 @@ main {
     width: 420px;
     height: 420px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(255, 154, 26, 0.32), transparent 70%);
+    background: radial-gradient(circle, var(--accent-glow), transparent 70%);
     top: -140px;
     left: -80px;
     pointer-events: none;
@@ -30,7 +31,7 @@ main {
     width: 360px;
     height: 360px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(233, 30, 140, 0.28), transparent 70%);
+    background: radial-gradient(circle, rgba(233, 30, 140, 0.32), transparent 70%);
     bottom: -120px;
     right: -60px;
     pointer-events: none;
@@ -63,7 +64,7 @@ main {
 
 .locali-hero .btn-primary {
     background: var(--white);
-    color: var(--wimii-blue);
+    color: var(--accent-deep);
     box-shadow: var(--shadow-soft);
 }
 
@@ -99,7 +100,7 @@ main {
 
 .benefit {
     background: var(--white);
-    border: 1px solid rgba(26, 43, 143, 0.06);
+    border: 1px solid rgba(74, 20, 54, 0.06);
     border-radius: var(--radius);
     padding: 1.75rem 1.5rem;
     text-align: left;
@@ -149,7 +150,7 @@ main {
     padding: 1.35rem 1.25rem;
     border-radius: var(--radius);
     box-shadow: var(--shadow-soft);
-    border: 1px solid rgba(26, 43, 143, 0.06);
+    border: 1px solid rgba(74, 20, 54, 0.06);
 }
 
 .step .num {
@@ -157,7 +158,7 @@ main {
     width: 42px;
     height: 42px;
     border-radius: 12px;
-    background: var(--grad-cta);
+    background: var(--grad-accent);
     color: var(--white);
     font-weight: 800;
     display: flex;
@@ -181,7 +182,7 @@ main {
 }
 
 .locali-final {
-    background: var(--wimii-blue-deep);
+    background: var(--plum);
     color: var(--white);
     text-align: center;
     padding: 5.5rem 1.5rem;

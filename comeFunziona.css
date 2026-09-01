@@ -82,8 +82,8 @@ main {
 
 .cf-step-tag {
     display: inline-block;
-    background: var(--wimii-blue-soft);
-    color: var(--wimii-blue);
+    background: var(--blush);
+    color: var(--accent-deep);
     padding: 0.4rem 0.9rem;
     border-radius: 8px;
     font-size: 0.8rem;
@@ -216,7 +216,7 @@ main {
     background: var(--white);
     border-radius: var(--radius);
     box-shadow: var(--shadow-soft);
-    border: 1px solid rgba(26, 43, 143, 0.06);
+    border: 1px solid rgba(74, 20, 54, 0.06);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
@@ -273,7 +273,7 @@ main {
     max-width: 760px;
     padding: 3rem 1.75rem;
     box-shadow: var(--shadow-soft);
-    border: 1px solid rgba(26, 43, 143, 0.06);
+    border: 1px solid rgba(74, 20, 54, 0.06);
 }
 
 .cf-contact h2 {
@@ -296,8 +296,8 @@ main {
     border-radius: 12px;
     font-weight: 700;
     text-decoration: none;
-    background: var(--wimii-blue-soft);
-    color: var(--wimii-blue);
+    background: var(--blush);
+    color: var(--accent-deep);
     transition: transform 0.2s ease, background 0.2s ease;
 }
 

@@ -42,9 +42,6 @@
 }
 
 :root {
-    --wimii-blue: #1a2b8f;
-    --wimii-blue-deep: #0e1758;
-    --wimii-blue-soft: #eef0fb;
     --wimii-magenta: #e91e8c;
     --wimii-magenta-deep: #c41272;
     --wimii-orange: #ff9a1a;
@@ -56,11 +53,64 @@
     --radius: 18px;
     --radius-sm: 12px;
     --header-h: 72px;
-    --shadow: 0 18px 50px rgba(14, 23, 88, 0.14);
-    --shadow-soft: 0 8px 28px rgba(14, 23, 88, 0.1);
-    --grad-brand: linear-gradient(135deg, var(--wimii-blue) 0%, #2a1a8a 45%, var(--wimii-magenta-deep) 100%);
+    --shadow: 0 18px 50px rgba(74, 20, 54, 0.14);
+    --shadow-soft: 0 8px 28px rgba(74, 20, 54, 0.1);
+    --grad-brand: linear-gradient(135deg, var(--wimii-magenta) 0%, #ff5a4d 45%, var(--wimii-orange) 100%);
     --grad-warm: linear-gradient(135deg, var(--wimii-magenta) 0%, var(--wimii-orange) 100%);
     --grad-cta: linear-gradient(135deg, var(--wimii-magenta) 0%, #ff6b3d 55%, var(--wimii-orange) 100%);
+
+    /* Accento per pubblico: stesso marchio, porta diversa.
+       Default = consumer (magenta). Le pagine business lo ridefiniscono. */
+    --accent: var(--wimii-magenta);
+    --accent-deep: var(--wimii-magenta-deep);
+    --accent-soft: #ff5fb0;
+    --accent-glow: rgba(233, 30, 140, 0.35);
+    --accent-veil: rgba(233, 30, 140, 0.22);
+    --grad-accent: var(--grad-cta);
+}
+
+/* ===================================================================
+   PALETTE CALDA — magenta e arancio del logo al centro.
+   Colori di supporto scelti per stare in famiglia con quei due:
+   prugna al posto del blu per lo scuro, panna per il chiaro.
+   =================================================================== */
+:root {
+    --wimii-orange-deep: #f07c00;
+
+    /* Scuri caldi: virano al magenta, mai al blu */
+    --plum: #2E1026;
+    --plum-mid: #4A1436;
+    --plum-deep: #1C0817;
+
+    /* Chiari caldi */
+    --cream: #FFF7F0;
+    --blush: #FFE9F3;
+    --peach: #FFEEDC;
+
+    /* Testo e superfici */
+    --ink: #2E1026;
+    --ink-soft: #7A5570;
+    --surface: var(--cream);
+
+    --shadow: 0 18px 50px rgba(74, 20, 54, 0.16);
+    --shadow-soft: 0 8px 28px rgba(74, 20, 54, 0.12);
+
+    /* Il gradiente firma: tramonto magenta → arancio */
+    --grad-brand: linear-gradient(135deg, var(--wimii-magenta) 0%, #ff5a4d 55%, var(--wimii-orange) 100%);
+    --grad-warm: linear-gradient(135deg, var(--wimii-magenta) 0%, var(--wimii-orange) 100%);
+    --grad-cta: linear-gradient(135deg, var(--wimii-magenta) 0%, #ff6b3d 55%, var(--wimii-orange) 100%);
+    --grad-accent: var(--grad-cta);
+    --grad-dark: linear-gradient(160deg, var(--plum-deep) 0%, var(--plum) 45%, var(--plum-mid) 100%);
+}
+
+/* Business: accento ambra sullo stesso nucleo caldo */
+.page-locali {
+    --accent: var(--wimii-orange);
+    --accent-deep: #e07c00;
+    --accent-soft: #ffb85c;
+    --accent-glow: rgba(255, 154, 26, 0.38);
+    --accent-veil: rgba(255, 154, 26, 0.24);
+    --grad-accent: linear-gradient(135deg, var(--wimii-yellow) 0%, var(--wimii-orange) 55%, #ff6b3d 100%);
 }
 
 *,
@@ -135,7 +185,7 @@ header {
     background: rgba(255, 255, 255, 0.82);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(26, 43, 143, 0.08);
+    border-bottom: 1px solid rgba(74, 20, 54, 0.08);
     transition: background 0.3s ease, box-shadow 0.3s ease;
     overflow: visible;
 }
@@ -168,7 +218,7 @@ body.nav-open {
 
 header.scrolled {
     background: rgba(255, 255, 255, 0.94);
-    box-shadow: 0 4px 24px rgba(14, 23, 88, 0.08);
+    box-shadow: 0 4px 24px rgba(74, 20, 54, 0.08);
 }
 
 a.logo,
@@ -227,8 +277,8 @@ header nav ul a {
 }
 
 header nav ul a:hover {
-    background: var(--wimii-blue-soft);
-    color: var(--wimii-blue);
+    background: var(--blush);
+    color: var(--accent-deep);
 }
 
 header nav.open {
@@ -291,8 +341,8 @@ header nav.open ul a {
 
 header nav.open ul a:hover {
     background: #eef0fb !important;
-    color: #1a2b8f !important;
-    -webkit-text-fill-color: #1a2b8f;
+    color: #c41272 !important;
+    -webkit-text-fill-color: #c41272;
 }
 
 header nav.open .nav-cta {
@@ -450,7 +500,7 @@ header nav.open ul #nav-cross img {
 
 /* ===== FOOTER ===== */
 footer {
-    background: var(--wimii-blue-deep);
+    background: var(--plum);
     color: rgba(255, 255, 255, 0.88);
     text-align: center;
     padding: 3.5rem 1.5rem 2.5rem;
